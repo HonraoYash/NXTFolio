@@ -1851,11 +1851,15 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 		if ( this.options.values && this.options.values.length ) {
 			otherVal = this.values( index ? 0 : 1 );
 
-			if ( ( this.options.values.length === 2 && this.options.range === true ) &&
-					( ( index === 0 && newVal > otherVal) || ( index === 1 && newVal < otherVal ) )
-				) {
+			const isTwoValues = this.options.values.length === 2;
+			const isRange = this.options.range === true;
+			const isFirstIndex = index === 0;
+			const isSecondIndex = index === 1;
+
+			if (isTwoValues && isRange && ((isFirstIndex && newVal > otherVal) || (isSecondIndex && newVal < otherVal))) {
 				newVal = otherVal;
 			}
+
 
 			if ( newVal !== this.values( index ) ) {
 				newValues = this.values();
