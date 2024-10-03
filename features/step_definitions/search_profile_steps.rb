@@ -1,5 +1,6 @@
-# Login Step Definitions
+# frozen_string_literal: true
 
+# Login Step Definitions
 
 # commented this block because ambiguous match 2023-03-06
 # When(/^I click on search button and search by email id$/) do

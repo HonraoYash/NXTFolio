@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   # Code is not reloaded between requests.
@@ -7,17 +9,18 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: ENV['gmail_username']}
+  config.action_mailer.default_options = { from: ENV['gmail_username'] }
   # Settings for Gmail
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'gmail.com',
-    user_name:            ENV['gmail_username'],
-    password:             ENV['gmail_password'],
-    authentication:       'plain',
-    enable_starttls_auto: true  }
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    user_name: ENV['gmail_username'],
+    password: ENV['gmail_password'],
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.default_url_options = { host: ENV['domain_url'], protocol: 'https' }
 
@@ -55,7 +58,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
   #
   # SErving static assets
-   config.serve_static_assets = true
+  config.serve_static_assets = true
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -70,7 +73,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -98,8 +101,8 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class GeneralInfoControllerTest < ActionDispatch::IntegrationTest
@@ -5,8 +7,8 @@ class GeneralInfoControllerTest < ActionDispatch::IntegrationTest
   #   assert true
   # end
 
-  #should not save without any parameters
-  test "save without any paramters" do
+  # should not save without any parameters
+  test 'save without any paramters' do
     @general_infos = GeneralInfo.new
     assert !@general_infos.save
   end
@@ -44,10 +46,7 @@ class GeneralInfoControllerTest < ActionDispatch::IntegrationTest
   #   assert_text "Creating an Article"
   # end
 
-
-  test "show" do
+  test 'show' do
     assert true
   end
-
-
 end

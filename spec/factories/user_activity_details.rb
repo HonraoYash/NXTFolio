@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # FactoryBot.define do
 #   factory :user_activity_detail do
 #     user_id { 1 }

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
-    def welcome_email(userGeneral, userLogin)
-        @userG = userGeneral
-        @userL = userLogin
-        mail(to: @userL["email"], subject: 'Welcome to NXTFolio')
-    end
+  def welcome_email(userGeneral, userLogin)
+    @userG = userGeneral
+    @userL = userLogin
+    mail(to: @userL['email'], subject: 'Welcome to NXTFolio')
+  end
 end

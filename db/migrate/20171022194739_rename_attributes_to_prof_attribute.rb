@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RenameAttributesToProfAttribute < ActiveRecord::Migration[5.0]
   def change
-    rename_column :templates, :attribute, :prof_attribute 
+    rename_column :templates, :attribute, :prof_attribute
   end
 end

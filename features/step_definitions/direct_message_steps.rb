@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Direct Message Steps
 
 # commented this block because ambiguous match 2023-03-06
@@ -21,12 +23,12 @@
 # end
 
 When(/^I click the "DM" button$/) do
-    visit root_path
-    click_button "a.dropbtn"
+  visit root_path
+  click_button 'a.dropbtn'
 end
 
 Then(/^I should redirect to the DM page$/) do
-    page.has_content?("Select a user to message!")
+  page.has_content?('Select a user to message!')
 end
 
 # And(/^I am on the DM page$/) do
@@ -34,18 +36,18 @@ end
 # end
 
 When(/^I click a user$/) do
-    click_on "Model"
+  click_on 'Model'
 end
 
 Then(/^I should see our DMs$/) do
-    page.has_content?("send")
+  page.has_content?('send')
 end
 
 When(/^I click the "send" button$/) do
-    fill_in "Message...", :with => "hello"
-    click_button "send"
+  fill_in 'Message...', with: 'hello'
+  click_button 'send'
 end
 
 Then(/^I should send a message$/) do
-    page.has_content?("hello")
+  page.has_content?('hello')
 end

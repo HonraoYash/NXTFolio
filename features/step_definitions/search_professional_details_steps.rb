@@ -1,28 +1,26 @@
+# frozen_string_literal: true
+
 # Search Professional Details Step Definitions
 
 When(/^I click on search button and search by profession/) do
-  
 end
 
 Then(/I should see "No matches"/) do
-
 end
 
 When(/^I click on search button and search by tags/) do
-  
 end
 
 When(/^I click on search button/) do
-
 end
 
-#Given (/^I am a valid user$/) do
+# Given (/^I am a valid user$/) do
 #  When I click on search button and search by profession
 #  Then I should see "No matches"
 #  When I click on search button and search by tags
 #  Then I should see "No matches"
 # end
-  
+
 Given(/^I am an invalid user$/) do
   When I click on search butt
   Then I should be on the login page
@@ -30,9 +28,9 @@ end
 
 When(/^I click on search button and search by email id$/) do
   visit 'search_profile/search'
-  fill_in "email", :with => 'hellofriend@gmail.com'
+  fill_in 'email', with: 'hellofriend@gmail.com'
   # click_button "Submit"
-  click_button "Search by email"
+  click_button 'Search by email'
 end
 
 # the search by field is not implemented : 2023-03-06

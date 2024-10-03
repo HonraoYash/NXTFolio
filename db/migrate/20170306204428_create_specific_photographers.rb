@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSpecificPhotographers < ActiveRecord::Migration[5.0]
   def change
     create_table :specific_photographers do |t|
@@ -7,7 +9,6 @@ class CreateSpecificPhotographers < ActiveRecord::Migration[5.0]
       t.text :specialties
       t.text :genre
       t.timestamps
-
     end
   end
 end

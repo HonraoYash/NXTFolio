@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 end
@@ -7,16 +9,16 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
-      FactoryBot.find_definitions
+    FactoryBot.find_definitions
   end
 end
 
-#FactoryBot.define do
-  #factory :login_info do
-    #`email   {"me@me.com"}
-    #password {"Apple12345*"}`
-  #end
-#end
+# FactoryBot.define do
+# factory :login_info do
+# `email   {"me@me.com"}
+# password {"Apple12345*"}`
+# end
+# end
 
 # Factory.define :login_info, :class => LoginInfo do |f|
 #   f.first_name "Mickey"

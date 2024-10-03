@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 class CreateGalleries < ActiveRecord::Migration[5.0]
   def change
     create_table :galleries do |t|
       t.string :gallery_title
       t.text :gallery_description
-      t.string :gallery_picture, array:true
+      t.string :gallery_picture, array: true
       t.float :gallery_totalRate
       t.integer :gallery_totalRator
       t.integer :GeneralInfo_id
 
-
-      t.string :test_picture, array:true
+      t.string :test_picture, array: true
       t.timestamps
     end
   end

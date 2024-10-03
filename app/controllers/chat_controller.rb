@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class ChatController < ApplicationController
-  #def index
-  #end
+  # def index
+  # end
 
   def chat
     user_input = params[:user_input]
     chat_service = ChatService.new
     response = chat_service.call(user_input)
 
-    render json: { response: response }
+    render json: { response: }
   end
 end

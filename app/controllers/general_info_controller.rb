@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GeneralInfoController < ApplicationController
   # Variable that holds a params/object with all the attributes filled in
   def list
@@ -8,13 +10,13 @@ class GeneralInfoController < ApplicationController
     # @general_info = GeneralInfo.find(params[:id])
   end
 
-  def get_user_keys array
-  #   @return_array = Array.new
-  #   array.each do |element,index|
-  #     @return_array.push(element[:userKey])
-  #   end
+  def get_user_keys(array)
+    #   @return_array = Array.new
+    #   array.each do |element,index|
+    #     @return_array.push(element[:userKey])
+    #   end
 
-  #   return @return_array
+    #   return @return_array
   end
 
   def make_admin
@@ -22,8 +24,8 @@ class GeneralInfoController < ApplicationController
       @user_entry = GeneralInfo.find_by(userKey: params[:user])
       if @user_entry
         @user_entry.update_attribute(:is_admin, true)
-        @user_entry.update_attribute(:job_name,'Admin')
-        redirect_to "/show_profile?user_key="+ params[:user].to_s
+        @user_entry.update_attribute(:job_name, 'Admin')
+        redirect_to "/show_profile?user_key=#{params[:user]}"
       else
         puts @user_entry.inspect
         redirect_to root_path
@@ -67,11 +69,11 @@ class GeneralInfoController < ApplicationController
 
     # get default email from session if available
     @general_info ||= GeneralInfo.new
-    @general_info.emailaddr = session[:current_login_user]["email"] if session.has_key? :current_login_user
+    @general_info.emailaddr = session[:current_login_user]['email'] if session.key? :current_login_user
   end
 
   def new2
-    @general_info ||= GeneralInfo.new
+    @new2 ||= GeneralInfo.new
   end
 
   # def profession_specific
@@ -81,7 +83,7 @@ class GeneralInfoController < ApplicationController
   #   @some = eval(template.prof_attribute)
   # end
 
-  # # POST request action for profession_specifi, called when profession_specific form is submitted     
+  # # POST request action for profession_specifi, called when profession_specific form is submitted
   # def profession_specific_create
   #   field_name_arr = params[:field_name]
   #   field_value_arr = params[:field_value]
@@ -107,7 +109,7 @@ class GeneralInfoController < ApplicationController
     @possible_Jobs = GeneralInfo.see_Jobs
     # Check to see if the required params are filled in
     @general_info = GeneralInfo.new(general_info_params)
-    error_statement = ""
+    error_statement = ''
     # if params[:general_info][:first_name] == ""
     #   error_statement += "First Name, "
     # end
@@ -139,7 +141,7 @@ class GeneralInfoController < ApplicationController
     #   error_statement += "Email, "
     # end
 
-    if error_statement.length > 0
+    if error_statement.length.positive?
       # error_statement = error_statement[0, error_statement.length-2]
       # error_statement += " are required."
       # flash[:notice] = error_statement
@@ -151,9 +153,9 @@ class GeneralInfoController < ApplicationController
     logger.debug(session.inspect)
     current_user = session[:current_login_user]
     login_user = LoginInfo.new(
-      :email => params[:general_info][:emailaddr], 
-      :password => current_user["password"], 
-      :password_confirmation => current_user["password"]
+      email: params[:general_info][:emailaddr],
+      password: current_user['password'],
+      password_confirmation: current_user['password']
     )
     userKey = SecureRandom.hex(10)
     login_user.userKey = userKey
@@ -162,7 +164,7 @@ class GeneralInfoController < ApplicationController
 
     # Creates a GeneralInfo object & assigns userKey to be the session key of the current room
     @general_info = GeneralInfo.new(general_info_params)
-    logger.info("Hey I am here")
+    logger.info('Hey I am here')
     logger.debug(@general_info.inspect)
     @general_info.userKey = session[:current_user_key]
     @general_info.is_admin = false
@@ -171,51 +173,49 @@ class GeneralInfoController < ApplicationController
 
     if GeneralInfo.any?
       @general_info.is_admin = false
-      if(@general_info.job_name == 'Admin' || @general_info.job_name == 'admin')
-        @general_info.job_name = 'Photographer'
-      end
+      @general_info.job_name = 'Photographer' if @general_info.job_name == 'Admin' || @general_info.job_name == 'admin'
     else
       @general_info.job_name = 'Admin'
       @general_info.is_admin = true
     end
 
-    if !@general_info.save
-      flash[:error] = "Unknown error when saving: try again later"
-      render :action => 'new' and return
+    unless @general_info.save
+      flash[:error] = 'Unknown error when saving: try again later'
+      render action: 'new' and return
     end
 
     # Send Verification Email upon successful sign-up
-    UserMailer.welcome_email(@general_info,current_user).deliver_now! #works
+    UserMailer.welcome_email(@general_info, current_user).deliver_now! # works
     if params[:select_one]
       session.delete(:current_login_user)
-      redirect_to "/general_info/new2"
+      redirect_to '/general_info/new2'
     elsif params[:select_two]
-      redirect_to "/search_engine/show"
+      redirect_to '/search_engine/show'
     end
-    
+
     # Redirect to specific profession edit page
-    #if $template_name == "Designer"
-      #@general_info.update_attribute(:specific_profile_id,1)
-      #redirect_to "/specific_designer/edit"
-      #elsif $template_name == "Model"
-      #@general_info.update_attribute(:specific_profile_id,2)
-      #redirect_to "/specific_model/edit"
-      #elsif $template_name == "Photographer"
-      #@general_info.update_attribute(:specific_profile_id,3)
-      #redirect_to "/specific_photographer/edit"
-    #end
+    # if $template_name == "Designer"
+    # @general_info.update_attribute(:specific_profile_id,1)
+    # redirect_to "/specific_designer/edit"
+    # elsif $template_name == "Model"
+    # @general_info.update_attribute(:specific_profile_id,2)
+    # redirect_to "/specific_model/edit"
+    # elsif $template_name == "Photographer"
+    # @general_info.update_attribute(:specific_profile_id,3)
+    # redirect_to "/specific_photographer/edit"
+    # end
   end
 
   # Params used to create the GeneralInfo object
   def general_info_params
     params.require(:general_info).permit(:first_name, :last_name, :company, :industry, \
-        :highlights, :country, :state, :city, :emailaddr, :bio, :specialization, :profdetails, \
-        :facebook_link, :linkedIn_link, :profile_picture, :personalWebsite_link, :compensation, \
-        :experience, :specific_profile_id, :job_name, :profile_picture, :cover_picture, :gallery_pictures, \
-        :travel_country, :travel_state, :travel_city, :travel_start, :travel_end, :travel_details, :tempVar => [])
-        # the tempVar here does not have any meaning, 
-        # but if deleted, the last variable will not be permit, don't know why
-        # keep the tempVar at the end!
+                                         :highlights, :country, :state, :city, :emailaddr, :bio, :specialization, :profdetails, \
+                                         :facebook_link, :linkedIn_link, :profile_picture, :personalWebsite_link, :compensation, \
+                                         :experience, :specific_profile_id, :job_name, :profile_picture, :cover_picture, :gallery_pictures, \
+                                         :travel_country, :travel_state, :travel_city, :travel_start, :travel_end, :travel_details, tempVar: [])
+    # the tempVar here does not have any meaning,
+    # but if deleted, the last variable will not be permit, don't know why
+    # keep the tempVar at the end!
   end
 
   # Allows room to edit the general_info_params of the GeneralInfo object
@@ -226,61 +226,57 @@ class GeneralInfoController < ApplicationController
     @countries = Country.all.order(:name)
 
     @possible_Jobs = GeneralInfo.see_Jobs
-    if GeneralInfo.exists?(:userKey => session[:current_user_key])
+    if GeneralInfo.exists?(userKey: session[:current_user_key])
       @general_info = GeneralInfo.find_by(userKey: session[:current_user_key])
       @username = @general_info[:first_name]
     else
-      redirect_to :action => 'new'
+      redirect_to action: 'new'
     end
   end
 
   def edit2
-    if GeneralInfo.exists?(:userKey => session[:current_user_key])
+    if GeneralInfo.exists?(userKey: session[:current_user_key])
       @general_info = GeneralInfo.find_by(userKey: session[:current_user_key])
       @username = @general_info[:first_name]
     else
-      redirect_to :action => 'new'
+      redirect_to action: 'new'
     end
-
   end
 
   # edit travel info
   def edit_travel
-    if GeneralInfo.exists?(:userKey => session[:current_user_key])
+    if GeneralInfo.exists?(userKey: session[:current_user_key])
       @general_info = GeneralInfo.find_by(userKey: session[:current_user_key])
       @username = @general_info[:first_name]
     else
-      redirect_to :action => 'new'
+      redirect_to action: 'new'
     end
-
   end
 
   # Saves the edit of the GeneralInfo object to the database
   def update
-    logger.info("Debugging general info edit")
+    logger.info('Debugging general info edit')
     logger.debug(params.inspect)
     @general_info = GeneralInfo.find_by(userKey: session[:current_user_key])
-    
-    #if @general_info.update_attributes!(general_info_update_param)
+
+    # if @general_info.update_attributes!(general_info_update_param)
     if @general_info.update(general_info_update_param)
-      if params[:select_one] || params[:select_two]
-        redirect_to '/show_profile'
-      end
+      redirect_to '/show_profile' if params[:select_one] || params[:select_two]
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
   # Params used to edit the GeneralInfo object
   def general_info_update_param
     params.require(:general_info).permit(:first_name, :last_name, :company, :highlights, \
-        :industry, :country, :state, :city, :emailaddr, :bio, :specialization, :profdetails, \
-        :facebook_link, :linkedIn_link, :profile_picture, :personalWebsite_link, :compensation, \
-        :experience, :cover_picture, :gallery_pictures, \
-        :travel_country, :travel_state, :travel_city, :travel_start, :travel_end, :travel_details, :tempVar => [])
-          # the tempVar here does not have any meaning, 
-          # but if deleted, the last variable will not be permit, don't know why
-          # keep the tempVar at the end!
+                                         :industry, :country, :state, :city, :emailaddr, :bio, :specialization, :profdetails, \
+                                         :facebook_link, :linkedIn_link, :profile_picture, :personalWebsite_link, :compensation, \
+                                         :experience, :cover_picture, :gallery_pictures, \
+                                         :travel_country, :travel_state, :travel_city, :travel_start, :travel_end, :travel_details, tempVar: [])
+    # the tempVar here does not have any meaning,
+    # but if deleted, the last variable will not be permit, don't know why
+    # keep the tempVar at the end!
   end
 
   # Allows room to edit the profession of the GeneralInfo object
@@ -309,14 +305,14 @@ class GeneralInfoController < ApplicationController
     user = GeneralInfo.find_by(userKey: session[:current_user_key])
     user.follow(params[:id])
     other_user = GeneralInfo.find(params[:id])
-    redirect_to show_profile_show_profile_path(:user_key => other_user.userKey)
+    redirect_to show_profile_show_profile_path(user_key: other_user.userKey)
   end
 
   def unfollow
     user = GeneralInfo.find_by(userKey: session[:current_user_key])
     user.unfollow(params[:id])
     other_user = GeneralInfo.find(params[:id])
-    redirect_to show_profile_show_profile_path(:user_key => other_user.userKey)
+    redirect_to show_profile_show_profile_path(user_key: other_user.userKey)
   end
 
   # # Params used to edit the GeneralInfo object's profession
@@ -325,19 +321,16 @@ class GeneralInfoController < ApplicationController
   # end
 
   # Not implemented
-  #def delete
+  # def delete
   #  # GeneralInfo.find(params[:userKey]).destroy
   #  GeneralInfo.find_by(userKey: params[:id]).destroy
-  #end
+  # end
 
-
-  #for destroying Gallery
+  # for destroying Gallery
   def destroy
     # GeneralInfo.find(params[:gallery]).destroy
   end
 
-
   # Takes input from the search view & calls the model search functions
-  def search
-  end
+  def search; end
 end
