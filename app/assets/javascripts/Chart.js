@@ -349,30 +349,18 @@ window.Chart = function(context){
 	
 	this.Bar = function(data,options){
 		chart.Bar.defaults = {
-			scaleOverlay : false,
-			scaleOverride : false,
-			scaleSteps : null,
-			scaleStepWidth : null,
-			scaleStartValue : null,
-			scaleLineColor : "rgba(0,0,0,.1)",
-			scaleLineWidth : 1,
-			scaleShowLabels : true,
-			scaleLabel : "<%=value%>",
-			scaleFontFamily : "'Arial'",
-			scaleFontSize : 12,
-			scaleFontStyle : "normal",
-			scaleFontColor : "#666",
-			scaleShowGridLines : true,
-			scaleGridLineColor : "rgba(0,0,0,.05)",
-			scaleGridLineWidth : 1,
-			barShowStroke : true,
-			barStrokeWidth : 2,
-			barValueSpacing : 5,
-			barDatasetSpacing : 1,
-			animation : true,
-			animationSteps : 60,
-			animationEasing : "easeOutQuart",
-			onAnimationComplete : null
+			scaleOverlay : false, scaleOverride : false,
+			scaleSteps : null, scaleStepWidth : null,
+			scaleStartValue : null, scaleLineColor : "rgba(0,0,0,.1)",
+			scaleLineWidth : 1, scaleShowLabels : true,
+			scaleLabel : "<%=value%>", scaleFontFamily : "'Arial'",
+			scaleFontSize : 12, scaleFontStyle : "normal",
+			scaleFontColor : "#666", scaleShowGridLines : true,
+			scaleGridLineColor : "rgba(0,0,0,.05)", scaleGridLineWidth : 1,
+			barShowStroke : true, barStrokeWidth : 2,
+			barValueSpacing : 5, barDatasetSpacing : 1,
+			animation : true, animationSteps : 60,
+			animationEasing : "easeOutQuart", onAnimationComplete : null
 		};		
 		var config = (options) ? mergeChartConfig(chart.Bar.defaults,options) : chart.Bar.defaults;
 		
@@ -693,9 +681,8 @@ window.Chart = function(context){
 		animationLoop(config,null,drawPieSegments,ctx);
 				
 		function drawPieSegments (animationDecimal){
-			var cumulativeAngle = -Math.PI/2,
-			scaleAnimation = 1,
-			rotateAnimation = 1;
+			var cumulativeAngle = -Math.PI/2, 
+			scaleAnimation = 1, rotateAnimation = 1;
 			if (config.animation) {
 				if (config.animateScale) scaleAnimation = animationDecimal;
 				if (config.animateRotate) rotateAnimation = animationDecimal;
