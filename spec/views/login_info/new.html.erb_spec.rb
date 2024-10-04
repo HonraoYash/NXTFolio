@@ -1,12 +1,14 @@
-require "rails_helper"
+# frozen_string_literal: true
 
-RSpec.describe 'login_info/new', :type => :view do
+require 'rails_helper'
+
+RSpec.describe 'login_info/new', type: :view do
   it 'renders the new template for sign up' do
     assign(:login_info, LoginInfo.create!({
-      :email => "hellofriend@gmail.com",
-      :password => "Apple12345*",
-      :password_confirmation => "Apple12345*"
-    }))
+                                            email: 'hellofriend@gmail.com',
+                                            password: 'Apple12345*',
+                                            password_confirmation: 'Apple12345*'
+                                          }))
 
     render
 

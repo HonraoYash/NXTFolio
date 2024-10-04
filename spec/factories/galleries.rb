@@ -1,4 +1,6 @@
-#FactoryBot.define do
+# frozen_string_literal: true
+
+# FactoryBot.define do
 #  factory :gallery do
 #    gallery_title { "MyString" }
 #    gallery_description { "MyText" }
@@ -7,4 +9,4 @@
 #    gallery_totalRator { 1 }
 #    GeneralInfo_id { 1 }
 #  end
-#end
+# end

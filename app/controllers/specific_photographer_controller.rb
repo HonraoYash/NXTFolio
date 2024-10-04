@@ -1,95 +1,92 @@
- class SpecificPhotographerController < ApplicationController
-   def list
-     @specific_photographers = SpecificPhotographer.all
-   end
+# frozen_string_literal: true
 
-   def show
-     @specific_photographer = SpecificPhotographer.find(params[:id])
-   end
+class SpecificPhotographerController < ApplicationController
+  def list
+    @specific_photographers = SpecificPhotographer.all
+  end
 
-   def new
-     @specific_photographer = SpecificPhotographer.new
-   end
+  def show
+    @specific_photographer = SpecificPhotographer.find(params[:id])
+  end
 
-   def create
-     @specific_photographer = SpecificPhotographer.new(specific_photographer_params)
-     @genre_str
-     if !params[:specific_photographer][:allgenres].nil?
-       for index in 0 ... params[:specific_photographer][:allgenres].size
-          @genre_str = @genre_str.to_s + params[:specific_photographer][:allgenres][index] + ","
-       end
-     else
-     end
+  def new
+    @specific_photographer = SpecificPhotographer.new
+  end
 
-     #puts @genre_str
-     @specific_photographer.genre = @genre_str
-     @specific_photographer.user_key = session[:current_user_key]
+  def create
+    @specific_photographer = SpecificPhotographer.new(specific_photographer_params)
+    unless params[:specific_photographer][:allgenres].nil?
+      (0...params[:specific_photographer][:allgenres].size).each do |index|
+        @genre_str = "#{@genre_str}#{params[:specific_photographer][:allgenres][index]},"
+      end
+    end
 
-     if @specific_photographer.save!
-       puts "Saved and returning the profile"
-       redirect_to '/show_profile'
-     end
-   end
+    # puts @genre_str
+    @specific_photographer.genre = @genre_str
+    @specific_photographer.user_key = session[:current_user_key]
 
-   def specific_photographer_params
-     params.require(:specific_photographer).permit(:compensation, {:allgenres => []} , :experience, :influencers, :specialties, :genre)
-   end
+    return unless @specific_photographer.save!
 
-   def edit
-     if SpecificPhotographer.exists?(:user_key => session[:current_user_key])
-       @specific_photographer = SpecificPhotographer.find_by(user_key: session[:current_user_key])
-     else
-       redirect_to :action => 'new'
-     end
-   end
+    puts 'Saved and returning the profile'
+    redirect_to '/show_profile'
+  end
 
-   def update
-     @specific_photographer = SpecificPhotographer.find_by(user_key: session[:current_user_key])
+  def specific_photographer_params
+    params.require(:specific_photographer).permit(:compensation, { allgenres: [] }, :experience, :influencers,
+                                                  :specialties, :genre)
+  end
 
-     # if @specific_photographer.update_attributes(specific_photographers_param)
-     if @specific_photographer.update(specific_photographers_param)
-       redirect_to '/show_profile'
-     end
-   end
+  def edit
+    if SpecificPhotographer.exists?(user_key: session[:current_user_key])
+      @specific_photographer = SpecificPhotographer.find_by(user_key: session[:current_user_key])
+    else
+      redirect_to action: 'new'
+    end
+  end
 
-   def specific_photographers_param
-     params.require(:specific_photographer).permit(:compensation, :experience, :influencers, :specialties, :genre)
-   end
+  def update
+    @specific_photographer = SpecificPhotographer.find_by(user_key: session[:current_user_key])
 
-   def destroy
-     SpecificPhotographer.find_by_user_key(params[:user_key]).destroy
-     redirect_to root_path
-   end
+    # if @specific_photographer.update_attributes(specific_photographers_param)
+    return unless @specific_photographer.update(specific_photographers_param)
 
-   def search
+    redirect_to '/show_profile'
+  end
 
-   end
+  def specific_photographers_param
+    params.require(:specific_photographer).permit(:compensation, :experience, :influencers, :specialties, :genre)
+  end
 
-   def search_redirect
-     @checkboxes = params[:checkboxes]
-     @experience = params[:experience]
-     @params_arg = params
+  def destroy
+    SpecificPhotographer.find_by_user_key(params[:user_key]).destroy
+    redirect_to root_path
+  end
 
-     @user_objects = SpecificPhotographer.search @checkboxes,flash[:general_queries],@experience, @params_arg
+  def search; end
 
-     @user_objects.each do |object|
-       @general_info_object = GeneralInfo.find_by(userKey: object[:user_key])
+  def search_redirect
+    @checkboxes = params[:checkboxes]
+    @experience = params[:experience]
+    @params_arg = params
 
-       @attribute_param = object.attribute_values
-       @attribute_param[:first_name] = object[:user_key]
-       @attribute_param[:last_name] = @general_info_object[:last_name]
-       @attribute_param[:gender] = @general_info_object[:gender]
-       @attribute_param[:state] = @general_info_object[:state]
-       @attribute_param[:profession] = @general_info_object[:profession]
+    @user_objects = SpecificPhotographer.search @checkboxes, flash[:general_queries], @experience, @params_arg
 
-       puts @attribute_param[:first_name]
-       puts @attribute_param[:last_name]
-       puts @attribute_param[:gender]
-       puts @attribute_param[:state]
-       puts @attribute_param[:profession]
+    @user_objects.each do |object|
+      @general_info_object = GeneralInfo.find_by(userKey: object[:user_key])
 
-     end
-     redirect_to show_search_profile_path
-   end
+      @attribute_param = object.attribute_values
+      @attribute_param[:first_name] = object[:user_key]
+      @attribute_param[:last_name] = @general_info_object[:last_name]
+      @attribute_param[:gender] = @general_info_object[:gender]
+      @attribute_param[:state] = @general_info_object[:state]
+      @attribute_param[:profession] = @general_info_object[:profession]
 
- end
+      puts @attribute_param[:first_name]
+      puts @attribute_param[:last_name]
+      puts @attribute_param[:gender]
+      puts @attribute_param[:state]
+      puts @attribute_param[:profession]
+    end
+    redirect_to show_search_profile_path
+  end
+end

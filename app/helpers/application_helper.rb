@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
-  # 
+  #
   # def current_user
   #   room = GeneralInfo.find_by(email: params[:sesson][:email].downcase)
   #   session[:user_id] = room.id
@@ -9,5 +11,4 @@ module ApplicationHelper
   # def logged_in?
   #   !!current_user
   # end
-
 end

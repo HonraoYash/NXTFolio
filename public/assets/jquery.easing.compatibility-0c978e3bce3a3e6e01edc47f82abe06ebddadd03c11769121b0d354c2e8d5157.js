@@ -8,52 +8,36 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 
-(function($){
-$.extend( $.easing,
-{
-	easeIn: function (x, t, b, c, d) {
-		return $.easing.easeInQuad(x, t, b, c, d);
-	},
-	easeOut: function (x, t, b, c, d) {
-		return $.easing.easeOutQuad(x, t, b, c, d);
-	},
-	easeInOut: function (x, t, b, c, d) {
-		return $.easing.easeInOutQuad(x, t, b, c, d);
-	},
-	expoin: function(x, t, b, c, d) {
-		return $.easing.easeInExpo(x, t, b, c, d);
-	},
-	expoout: function(x, t, b, c, d) {
-		return $.easing.easeOutExpo(x, t, b, c, d);
-	},
-	expoinout: function(x, t, b, c, d) {
-		return $.easing.easeInOutExpo(x, t, b, c, d);
-	},
-	bouncein: function(x, t, b, c, d) {
-		return $.easing.easeInBounce(x, t, b, c, d);
-	},
-	bounceout: function(x, t, b, c, d) {
-		return $.easing.easeOutBounce(x, t, b, c, d);
-	},
-	bounceinout: function(x, t, b, c, d) {
-		return $.easing.easeInOutBounce(x, t, b, c, d);
-	},
-	elasin: function(x, t, b, c, d) {
-		return $.easing.easeInElastic(x, t, b, c, d);
-	},
-	elasout: function(x, t, b, c, d) {
-		return $.easing.easeOutElastic(x, t, b, c, d);
-	},
-	elasinout: function(x, t, b, c, d) {
-		return $.easing.easeInOutElastic(x, t, b, c, d);
-	},
-	backin: function(x, t, b, c, d) {
-		return $.easing.easeInBack(x, t, b, c, d);
-	},
-	backout: function(x, t, b, c, d) {
-		return $.easing.easeOutBack(x, t, b, c, d);
-	},
-	backinout: function(x, t, b, c, d) {
-		return $.easing.easeInOutBack(x, t, b, c, d);
-	}
-});})(jQuery);
+(function($) {
+    const easingMap = {
+        easeIn: 'easeInQuad',
+        easeOut: 'easeOutQuad',
+        easeInOut: 'easeInOutQuad',
+        expoin: 'easeInExpo',
+        expoout: 'easeOutExpo',
+        expoinout: 'easeInOutExpo',
+        bouncein: 'easeInBounce',
+        bounceout: 'easeOutBounce',
+        bounceinout: 'easeInOutBounce',
+        elasin: 'easeInElastic',
+        elasout: 'easeOutElastic',
+        elasinout: 'easeInOutElastic',
+        backin: 'easeInBack',
+        backout: 'easeOutBack',
+        backinout: 'easeInOutBack'
+    };
+
+    // Generic easing function
+    const createEasingFunction = (type) => {
+        return function (options) {
+            const { x, t, b, c, d } = options;
+            return $.easing[easingMap[type]](x, t, b, c, d);
+        };
+    };
+
+    // Extend jQuery easing with the mapped functions
+    $.extend($.easing, Object.keys(easingMap).reduce((acc, type) => {
+        acc[type] = createEasingFunction(type);
+        return acc;
+    }, {}));
+})(jQuery);

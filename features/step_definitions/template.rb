@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Create Profile Step Definitions
 
 # Given(/^I am on the home page$/) do
@@ -10,7 +12,7 @@ end
 
 Then(/^I should see a message "(.*?)"$/) do |message|
   case message
-    when "ADD A NEW PROFESSION"
-      page.has_content?('ADD A NEW PROFESSION')
+  when 'ADD A NEW PROFESSION'
+    page.has_content?('ADD A NEW PROFESSION')
   end
 end

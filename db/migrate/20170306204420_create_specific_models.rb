@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSpecificModels < ActiveRecord::Migration[5.0]
   def change
     create_table :specific_models do |t|
@@ -9,7 +11,7 @@ class CreateSpecificModels < ActiveRecord::Migration[5.0]
       t.string :cups
       t.integer :shoe_size
       t.integer :dress_size
-      
+
       t.string :hair_color
       t.string :eye_color
       t.string :ethnicity
@@ -19,7 +21,7 @@ class CreateSpecificModels < ActiveRecord::Migration[5.0]
       t.string :piercings
       t.string :experience
       t.text :genre
-      
+
       t.timestamps
     end
   end

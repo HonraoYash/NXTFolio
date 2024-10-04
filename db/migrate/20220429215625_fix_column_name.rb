@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixColumnName < ActiveRecord::Migration[5.0]
   def self.up
     rename_column :reviews, :gellery_id, :gallery_id

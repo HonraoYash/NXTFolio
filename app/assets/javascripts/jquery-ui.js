@@ -3,6 +3,13 @@
 * Includes: core.js, widget.js, mouse.js, position.js, slider.js
 * Copyright 2015 jQuery Foundation and other contributors; Licensed MIT */
 
+function updateUiHash(uiHash, index) {
+    if (this.options.values && this.options.values.length) {
+        uiHash.value = this.values(index);
+        uiHash.values = this.values();
+    }
+}
+
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 
@@ -1836,10 +1843,7 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 			handle: this.handles[ index ],
 			value: this.value()
 		};
-		if ( this.options.values && this.options.values.length ) {
-			uiHash.value = this.values( index );
-			uiHash.values = this.values();
-		}
+		updateUiHash.call(this, uiHash, index);
 		return this._trigger( "start", event, uiHash );
 	},
 
@@ -1890,10 +1894,7 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 			handle: this.handles[ index ],
 			value: this.value()
 		};
-		if ( this.options.values && this.options.values.length ) {
-			uiHash.value = this.values( index );
-			uiHash.values = this.values();
-		}
+		updateUiHash.call(this, uiHash, index);
 
 		this._trigger( "stop", event, uiHash );
 	},
@@ -1904,10 +1905,7 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 				handle: this.handles[ index ],
 				value: this.value()
 			};
-			if ( this.options.values && this.options.values.length ) {
-				uiHash.value = this.values( index );
-				uiHash.values = this.values();
-			}
+			updateUiHash.call(this, uiHash, index);
 
 			//store the last changed value index for reference when handles overlap
 			this._lastChangedValue = index;
