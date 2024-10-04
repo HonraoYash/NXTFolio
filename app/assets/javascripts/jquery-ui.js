@@ -1088,19 +1088,16 @@ function parseCss( element, property ) {
 
 function getDimensions( elem ) {
 	var raw = elem[0];
+	var width = elem.width()
+	var height = elem.height()
+	var offset = { top: 0, left: 0 }
+
 	if ( raw.nodeType === 9 ) {
-		return {
-			width: elem.width(),
-			height: elem.height(),
-			offset: { top: 0, left: 0 }
-		};
+		return {width, height, offset};
 	}
 	if ( $.isWindow( raw ) ) {
-		return {
-			width: elem.width(),
-			height: elem.height(),
-			offset: { top: elem.scrollTop(), left: elem.scrollLeft() }
-		};
+		offset = { top: elem.scrollTop(), left: elem.scrollLeft() };
+		return {width, height, offset};
 	}
 	if ( raw.preventDefault ) {
 		return {

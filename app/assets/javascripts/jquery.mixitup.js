@@ -1822,8 +1822,7 @@
 		 */
 		
 		insert: function(){
-			var self = this,
-				args = self._parseInsertArgs(arguments),
+			var self = this, args = self._parseInsertArgs(arguments),
 				callback = (typeof args.callback === 'function') ? args.callback : null,
 				frag = document.createDocumentFragment(),
 				target = (function(){

@@ -762,7 +762,6 @@ MagnificPopup.prototype = {
 		}
 	},
 	_parseMarkup: function(template, values, item) {
-		var arr;
 		if(item.data) {
 			values = $.extend(item.data, values);
 		}
@@ -772,31 +771,29 @@ MagnificPopup.prototype = {
 			if(value === undefined || value === false) {
 				return true;
 			}
-			arr = key.split('_');
-			if(arr.length > 1) {
-				var el = template.find(EVENT_NS + '-'+arr[0]);
+			const arr = key.split('_');
+			const el = template.find(EVENT_NS + '-' + arr[0]);
 
-				if(el.length > 0) {
-					var attr = arr[1];
-					if(attr === 'replaceWith') {
-						if(el[0] !== value[0]) {
-							el.replaceWith(value);
-						}
-					} else if(attr === 'img') {
-						if(el.is('img')) {
-							el.attr('src', value);
-							return;
-						}
-						el.replaceWith( $('<img>')
-							.attr('src', value)
-							.attr('class', el.attr('class')) );
-					} else {
-						el.attr(arr[1], value);
-					}
+			if(arr.length > 1 && el.length > 0) {
+				const attr = arr[1];
+				if (attr === 'replaceWith' && el[0] !== value[0]) {
+					el.replaceWith(value);
+					return; // Early return after handling replaceWith
 				}
 
+				if (attr === 'img') {
+					if (el.is('img')) {
+						el.attr('src', value);
+					} else {
+						el.replaceWith($('<img>')
+							.attr('src', value)
+							.attr('class', el.attr('class')));
+					}
+					return; 
+				}
+				el.attr(attr, value);
 			} else {
-				template.find(EVENT_NS + '-'+key).html(value);
+				template.find(EVENT_NS + '-' + key).html(value);
 			}
 		});
 	},
