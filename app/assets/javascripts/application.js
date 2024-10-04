@@ -17,7 +17,11 @@
 console.log("Javascript update testing");
 
 
-
+function handleButtonClick(buttonType) {
+    localStorage.setItem('buttonpressed', buttonType);
+    $(".visualdiv").hide();  
+    $(`.${buttonType}div`).show();  
+}
 
 
 $( document ).ready(function() {
@@ -576,9 +580,7 @@ $( document ).ready(function() {
 
     $(".visualbutton").click(function () {
         //console.log("Goosebump");
-        localStorage.setItem('buttonpressed', 'visual');
-        $(".visualdiv").show();
-        $(".alldiv").hide();
+        handleButtonClick('visual');
         $(".retaildiv").hide();
         $(".marketingdiv").hide();
         $(".bloggingdiv").hide();
@@ -625,9 +627,7 @@ $( document ).ready(function() {
 
     $(".financingbutton").click(function () {
         //console.log("Goosebump");
-        localStorage.setItem('buttonpressed', 'financing');
-        $(".financingdiv").show();
-        $(".alldiv").hide();
+        handleButtonClick('financing');
         $(".visualdiv").hide();
         $(".retaildiv").hide();
         $(".marketingdiv").hide();
@@ -674,9 +674,7 @@ $( document ).ready(function() {
 
     $(".forecastingbutton").click(function () {
         //console.log("Goosebump");
-        localStorage.setItem('buttonpressed', 'forecasting');
-        $(".forecastingdiv").show();
-        $(".alldiv").hide();
+        handleButtonClick('forecasting');
         $(".financingdiv").hide();
         $(".visualdiv").hide();
         $(".retaildiv").hide();
@@ -723,9 +721,7 @@ $( document ).ready(function() {
 
     $(".stylistbutton").click(function () {
         //console.log("Goosebump");
-        localStorage.setItem('buttonpressed', 'stylist');
-        $(".forecastingdiv").hide();
-        $(".alldiv").hide();
+        handleButtonClick('stylist');
         $(".financingdiv").hide();
         $(".visualdiv").hide();
         $(".retaildiv").hide();
@@ -772,9 +768,7 @@ $( document ).ready(function() {
 
     $(".otherservicesbutton").click(function () {
         //console.log("Goosebump");
-        localStorage.setItem('buttonpressed', 'otherservices');
-        $(".otherservicesdiv").show();
-        $(".alldiv").hide();
+        handleButtonClick('otherservices');
         $(".financingdiv").hide();
         $(".visualdiv").hide();
         $(".retaildiv").hide();
@@ -821,9 +815,7 @@ $( document ).ready(function() {
 
     $(".manufacturingbutton").click(function () {
         //console.log("Goosebump");
-        localStorage.setItem('buttonpressed', 'manufacturing');
-        $(".manufacturingdiv").show();
-        $(".alldiv").hide();
+        handleButtonClick('manufacturing');
         $(".otherservicesdiv").hide();
         $(".financingdiv").hide();
         $(".visualdiv").hide();
@@ -870,9 +862,7 @@ $( document ).ready(function() {
 
     $(".materialsbutton").click(function () {
         //console.log("Goosebump");
-        localStorage.setItem('buttonpressed', 'materials');
-        $(".materialsdiv").show();
-        $(".alldiv").hide();
+        handleButtonClick('materials');
         $(".manufacturingdiv").hide();
         $(".otherservicesdiv").hide();
         $(".financingdiv").hide();
