@@ -1137,8 +1137,9 @@ function applyStyle(data) {
  * @param {HTMLElement} popper - The HTML element used as popper.
  * @param {Object} options - Popper.js options
  */
-function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
+function applyStyleOnLoad(option) {
   // compute reference element offsets
+  const {reference, popper, options, modifierOptions, state} = option;
   var referenceOffsets = getReferenceOffsets(state, popper, reference);
 
   // compute auto placement, store placement inside the data object,

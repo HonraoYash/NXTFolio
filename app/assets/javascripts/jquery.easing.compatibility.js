@@ -9,51 +9,25 @@
  */
 
 (function($){
-$.extend( $.easing,
-{
-	easeIn: function (x, t, b, c, d) {
-		return $.easing.easeInQuad(x, t, b, c, d);
-	},
-	easeOut: function (x, t, b, c, d) {
-		return $.easing.easeOutQuad(x, t, b, c, d);
-	},
-	easeInOut: function (x, t, b, c, d) {
-		return $.easing.easeInOutQuad(x, t, b, c, d);
-	},
-	expoin: function(x, t, b, c, d) {
-		return $.easing.easeInExpo(x, t, b, c, d);
-	},
-	expoout: function(x, t, b, c, d) {
-		return $.easing.easeOutExpo(x, t, b, c, d);
-	},
-	expoinout: function(x, t, b, c, d) {
-		return $.easing.easeInOutExpo(x, t, b, c, d);
-	},
-	bouncein: function(x, t, b, c, d) {
-		return $.easing.easeInBounce(x, t, b, c, d);
-	},
-	bounceout: function(x, t, b, c, d) {
-		return $.easing.easeOutBounce(x, t, b, c, d);
-	},
-	bounceinout: function(x, t, b, c, d) {
-		return $.easing.easeInOutBounce(x, t, b, c, d);
-	},
-	elasin: function(x, t, b, c, d) {
-		return $.easing.easeInElastic(x, t, b, c, d);
-	},
-	elasout: function(x, t, b, c, d) {
-		return $.easing.easeOutElastic(x, t, b, c, d);
-	},
-	elasinout: function(x, t, b, c, d) {
-		return $.easing.easeInOutElastic(x, t, b, c, d);
-	},
-	backin: function(x, t, b, c, d) {
-		return $.easing.easeInBack(x, t, b, c, d);
-	},
-	backout: function(x, t, b, c, d) {
-		return $.easing.easeOutBack(x, t, b, c, d);
-	},
-	backinout: function(x, t, b, c, d) {
-		return $.easing.easeInOutBack(x, t, b, c, d);
+	function addEasing(oldName, newName){
+		$.easing[oldName] = function(x, t, b, c, d){
+			return $.easing[newName](x, t, b, c, d);
+		};
 	}
-});})(jQuery);
+	addEasing('easeIn', 'easeInQuad');
+    addEasing('easeOut', 'easeOutQuad');
+    addEasing('easeInOut', 'easeInOutQuad');
+    addEasing('expoin', 'easeInExpo');
+    addEasing('expoout', 'easeOutExpo');
+    addEasing('expoinout', 'easeInOutExpo');
+    addEasing('bouncein', 'easeInBounce');
+    addEasing('bounceout', 'easeOutBounce');
+    addEasing('bounceinout', 'easeInOutBounce');
+    addEasing('elasin', 'easeInElastic');
+    addEasing('elasout', 'easeOutElastic');
+    addEasing('elasinout', 'easeInOutElastic');
+    addEasing('backin', 'easeInBack');
+    addEasing('backout', 'easeOutBack');
+    addEasing('backinout', 'easeInOutBack');
+
+})(jQuery);
