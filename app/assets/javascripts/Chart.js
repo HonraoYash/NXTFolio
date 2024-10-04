@@ -451,12 +451,8 @@ window.Chart = function(context){
 			scaleAnimation = 1,
 			rotateAnimation = 1;
 			if (config.animation) {
-				if (config.animateScale) {
-					scaleAnimation = animationDecimal;
-				}
-				if (config.animateRotate){
-					rotateAnimation = animationDecimal;
-				}
+				if (config.animateScale) scaleAnimation = animationDecimal;
+				if (config.animateRotate) rotateAnimation = animationDecimal;
 			}
 
 			for (var i=0; i<data.length; i++){
@@ -701,12 +697,8 @@ window.Chart = function(context){
 			scaleAnimation = 1,
 			rotateAnimation = 1;
 			if (config.animation) {
-				if (config.animateScale) {
-					scaleAnimation = animationDecimal;
-				}
-				if (config.animateRotate){
-					rotateAnimation = animationDecimal;
-				}
+				if (config.animateScale) scaleAnimation = animationDecimal;
+				if (config.animateRotate) rotateAnimation = animationDecimal;
 			}
 			for (var i=0; i<data.length; i++){
 				var segmentAngle = rotateAnimation * ((data[i].value/segmentTotal) * (Math.PI*2));
@@ -1189,8 +1181,6 @@ window.Chart = function(context){
 			easingFunction = animationOptions[config.animationEasing],
 			percentAnimComplete =(config.animation)? 0 : 1;
 		
-	
-		
 		if (typeof drawScale !== "function") drawScale = function(){};
 		
 		requestAnimFrame(animLoop);
@@ -1211,9 +1201,7 @@ window.Chart = function(context){
 				percentAnimComplete += animFrameAmount;
 				animateFrame();	
 				//Stop the loop continuing forever
-				if (percentAnimComplete <= 1){
-					requestAnimFrame(animLoop);
-				}
+				if (percentAnimComplete <= 1) requestAnimFrame(animLoop);
 				else{
 					if (typeof config.onAnimationComplete == "function") config.onAnimationComplete();
 				}

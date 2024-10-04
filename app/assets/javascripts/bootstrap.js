@@ -1931,9 +1931,7 @@ if (typeof jQuery === 'undefined') {
   }
 
   ScrollSpy.prototype.refresh = function () {
-    var that          = this
-    var offsetMethod  = 'offset'
-    var offsetBase    = 0
+    var that = this, offsetMethod = 'offset', offsetBase = 0;
 
     this.offsets      = []
     this.targets      = []

@@ -81,9 +81,7 @@
 
         this.opt.score = this._adjustedScore(this.opt.score);
 
-        if (this.opt.starType !== 'img') {
-          this._adjustStarName();
-        }
+        if (this.opt.starType !== 'img') this._adjustStarName();
 
         this._setPath();
         this._createStars();
