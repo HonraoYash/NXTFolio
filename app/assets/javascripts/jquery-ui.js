@@ -1377,18 +1377,15 @@ $.ui.position = {
 				} else {
 					if ( overLeft > overRight ) {
 						position.left = withinOffset + outerWidth - data.collisionWidth;
-					} else {
-						position.left = withinOffset;
-					}
+					} 
+					else position.left = withinOffset;
 				}
 			// too far left -> align with left edge
-			} else if ( overLeft > 0 ) {
-				position.left += overLeft;
+			} else if ( overLeft > 0 ) position.left += overLeft;
 			// too far right -> align with right edge
-			} else if ( overRight > 0 ) {
-				position.left -= overRight;
+			 else if ( overRight > 0 ) position.left -= overRight;
 			// adjust based on position and margin
-			} else {
+			else {
 				position.left = max( position.left - collisionPosLeft, position.left );
 			}
 		},
@@ -1862,7 +1859,7 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 			if (isTwoValuesRange && ((isFirstIndex && newVal > otherVal) || (isSecondIndex && newVal < otherVal))) {
 				newVal = otherVal;
 			}
-			
+
 			if ( newVal !== this.values( index ) ) {
 				newValues = this.values();
 				newValues[ index ] = newVal;

@@ -564,8 +564,7 @@ MagnificPopup.prototype = {
 	 * @param  {int} index Index of item to parse
 	 */
 	parseEl: function(index) {
-		var item = mfp.items[index],
-			type;
+		var item = mfp.items[index], type;
 
 		if(item.tagName) {
 			item = { el: $(item) };
@@ -579,10 +578,7 @@ MagnificPopup.prototype = {
 
 			// check for 'mfp-TYPE' class
 			for(var i = 0; i < types.length; i++) {
-				if( item.el.hasClass('mfp-'+types[i]) ) {
-					type = types[i];
-					break;
-				}
+				if( item.el.hasClass('mfp-'+types[i]) ) type = types[i]; break;
 			}
 
 			item.src = item.el.attr('data-mfp-src');

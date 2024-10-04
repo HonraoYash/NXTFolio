@@ -724,8 +724,7 @@ window.Chart = function(context){
 		
 		function drawPieSegments (animationDecimal){
 			var cumulativeAngle = -Math.PI/2,
-			scaleAnimation = 1,
-			rotateAnimation = 1;
+			scaleAnimation = 1, rotateAnimation = 1;
 			if (config.animation) {
 				if (config.animateScale) {
 					scaleAnimation = animationDecimal;

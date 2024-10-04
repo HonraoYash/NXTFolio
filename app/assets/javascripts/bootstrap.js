@@ -641,8 +641,7 @@ if (typeof jQuery === 'undefined') {
     if (this.transitioning || !this.$element.hasClass('in')) return
 
     var startEvent = $.Event('hide.bs.collapse')
-    this.$element.trigger(startEvent)
-    if (startEvent.isDefaultPrevented()) return
+    if (this.$element.trigger(startEvent).isDefaultPrevented()) return
 
     var dimension = this.dimension()
 
