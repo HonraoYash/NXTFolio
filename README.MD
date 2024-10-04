@@ -5,6 +5,8 @@ Heroku link - https://nxtfolio.herokuapp.com/
 
 Taiga Tracker link - https://tree.taiga.io/project/honraoyash-fashionxt-nxtfolio/timeline
 
+[Agile Team Working Agreement](documentation/Agile Team Working Agreement.txt)
+
 Agile Team Working Agreement 
 
 Project Title: NXTFolio
