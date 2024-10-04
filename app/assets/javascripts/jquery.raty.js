@@ -607,10 +607,11 @@
       },
 
       _starName: function(score, evt) {
+        let result;
         var decimal = +(score % 1).toFixed(2);
 
         if (evt || this.isMove) {
-          return decimal > 0.5 ? 'starOn' : 'starHalf';
+          result = decimal > 0.5 ? 'starOn' : 'starHalf';
         }
 
         if (decimal <= this.opt.round.down) { // Down: [x.00 ... x.25]
@@ -618,14 +619,14 @@
         }
 
         if (this.opt.halfShow && decimal < this.opt.round.up) { // Half: [x.26 ... x.75]
-          return 'starHalf';
+          result = 'starHalf';
         }
 
         if (decimal < this.opt.round.full) { // Off: [x.26 .. x.6]
-          return 'starOff';
+          result = 'starOff';
         }
 
-        return 'starOn'; // Up: [x.26 ...] || [x.6 ...]
+        return 'starOn' || result; // Up: [x.26 ...] || [x.6 ...]
       },
 
       // TODO: model spec

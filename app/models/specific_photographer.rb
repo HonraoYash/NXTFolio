@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class SpecificPhotographer < ApplicationRecord
+<<<<<<< HEAD
+=======
+  include AttributeValues
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
   attr_accessor :allgenres
 
   def self.search(params_arg)
@@ -65,6 +69,7 @@ class SpecificPhotographer < ApplicationRecord
 
   # Sets appearance of profile view attributes
   def attribute_values
+<<<<<<< HEAD
     @attribute_values = {}
     @attribute_values[:influencers] = "Influencers: #{influencers}"
     @attribute_values[:specialties] = "Specialities: #{specialties}"
@@ -80,5 +85,8 @@ class SpecificPhotographer < ApplicationRecord
     end
 
     @attribute_values
+=======
+    set_attribute_values
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
   end
 end

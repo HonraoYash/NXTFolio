@@ -8,6 +8,35 @@
  */
 
 //Define the global Chart Variable as a class.
+function calculateAndPopulateScale(config, scaleHeight) {
+    calculateDrawingSizes();
+    const valueBounds = getValueBounds();
+    const labelTemplateString = (config.scaleShowLabels) ? config.scaleLabel : "";
+
+    let calculatedScale;
+    
+    if (!config.scaleOverride) {
+        calculatedScale = calculateScale(
+            scaleHeight,
+            valueBounds.maxSteps,
+            valueBounds.minSteps,
+            valueBounds.maxValue,
+            valueBounds.minValue,
+            labelTemplateString
+        );
+    } else {
+        calculatedScale = {
+            steps: config.scaleSteps,
+            stepValue: config.scaleStepWidth,
+            graphMin: config.scaleStartValue,
+            labels: []
+        };
+        populateLabels(labelTemplateString, calculatedScale.labels, calculatedScale.steps, config.scaleStartValue, config.scaleStepWidth);
+    }
+
+    return calculatedScale;
+}
+
 window.Chart = function(context){
 
 	var chart = this;
@@ -358,26 +387,7 @@ window.Chart = function(context){
 		var maxSize, scaleHop, calculatedScale, labelHeight, scaleHeight, valueBounds, labelTemplateString;		
 		
 		
-		calculateDrawingSizes();
-		
-		valueBounds = getValueBounds();
-
-		labelTemplateString = (config.scaleShowLabels)? config.scaleLabel : null;
-
-		//Check and set the scale
-		if (!config.scaleOverride){
-			
-			calculatedScale = calculateScale(scaleHeight,valueBounds.maxSteps,valueBounds.minSteps,valueBounds.maxValue,valueBounds.minValue,labelTemplateString);
-		}
-		else {
-			calculatedScale = {
-				steps : config.scaleSteps,
-				stepValue : config.scaleStepWidth,
-				graphMin : config.scaleStartValue,
-				labels : []
-			}
-			populateLabels(labelTemplateString, calculatedScale.labels,calculatedScale.steps,config.scaleStartValue,config.scaleStepWidth);
-		}
+		calculatedScale = calculateAndPopulateScale(config, scaleHeight);
 		
 		scaleHop = maxSize/(calculatedScale.steps);
 
@@ -494,26 +504,7 @@ window.Chart = function(context){
 		//If no labels are defined set to an empty array, so referencing length for looping doesn't blow up.
 		if (!data.labels) data.labels = [];
 		
-		calculateDrawingSizes();
-
-		var valueBounds = getValueBounds();
-
-		labelTemplateString = (config.scaleShowLabels)? config.scaleLabel : null;
-
-		//Check and set the scale
-		if (!config.scaleOverride){
-			
-			calculatedScale = calculateScale(scaleHeight,valueBounds.maxSteps,valueBounds.minSteps,valueBounds.maxValue,valueBounds.minValue,labelTemplateString);
-		}
-		else {
-			calculatedScale = {
-				steps : config.scaleSteps,
-				stepValue : config.scaleStepWidth,
-				graphMin : config.scaleStartValue,
-				labels : []
-			}
-			populateLabels(labelTemplateString, calculatedScale.labels,calculatedScale.steps,config.scaleStartValue,config.scaleStepWidth);
-		}
+		calculatedScale = calculateAndPopulateScale(config, scaleHeight);
 		
 		scaleHop = maxSize/(calculatedScale.steps);
 		
@@ -789,24 +780,7 @@ window.Chart = function(context){
 	var Line = function(data,config,ctx){
 		var maxSize, scaleHop, calculatedScale, labelHeight, scaleHeight, valueBounds, labelTemplateString, valueHop,widestXLabel, xAxisLength,yAxisPosX,xAxisPosY, rotateLabels = 0;
 			
-		calculateDrawingSizes();
-		
-		valueBounds = getValueBounds();
-		//Check and set the scale
-		labelTemplateString = (config.scaleShowLabels)? config.scaleLabel : "";
-		if (!config.scaleOverride){
-			
-			calculatedScale = calculateScale(scaleHeight,valueBounds.maxSteps,valueBounds.minSteps,valueBounds.maxValue,valueBounds.minValue,labelTemplateString);
-		}
-		else {
-			calculatedScale = {
-				steps : config.scaleSteps,
-				stepValue : config.scaleStepWidth,
-				graphMin : config.scaleStartValue,
-				labels : []
-			}
-			populateLabels(labelTemplateString, calculatedScale.labels,calculatedScale.steps,config.scaleStartValue,config.scaleStepWidth);
-		}
+		calculatedScale = calculateAndPopulateScale(config, scaleHeight);
 		
 		scaleHop = Math.floor(scaleHeight/calculatedScale.steps);
 		calculateXAxisSize();
@@ -1021,24 +995,7 @@ window.Chart = function(context){
 	var Bar = function(data,config,ctx){
 		var maxSize, scaleHop, calculatedScale, labelHeight, scaleHeight, valueBounds, labelTemplateString, valueHop,widestXLabel, xAxisLength,yAxisPosX,xAxisPosY,barWidth, rotateLabels = 0;
 			
-		calculateDrawingSizes();
-		
-		valueBounds = getValueBounds();
-		//Check and set the scale
-		labelTemplateString = (config.scaleShowLabels)? config.scaleLabel : "";
-		if (!config.scaleOverride){
-			
-			calculatedScale = calculateScale(scaleHeight,valueBounds.maxSteps,valueBounds.minSteps,valueBounds.maxValue,valueBounds.minValue,labelTemplateString);
-		}
-		else {
-			calculatedScale = {
-				steps : config.scaleSteps,
-				stepValue : config.scaleStepWidth,
-				graphMin : config.scaleStartValue,
-				labels : []
-			}
-			populateLabels(labelTemplateString, calculatedScale.labels,calculatedScale.steps,config.scaleStartValue,config.scaleStepWidth);
-		}
+		calculatedScale = calculateAndPopulateScale(config, scaleHeight);
 		
 		scaleHop = Math.floor(scaleHeight/calculatedScale.steps);
 		calculateXAxisSize();

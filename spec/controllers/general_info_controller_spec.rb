@@ -48,6 +48,7 @@ RSpec.describe GeneralInfoController, type: :controller do
   describe 'GET #make_admin' do
     it 'should create an admin when there is an existing admin user' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                          company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX',
@@ -56,6 +57,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                          instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com',
                                          bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10),
                                          is_admin: true)
+=======
+                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10), is_admin: true)
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       session[:current_user_key] = @general_info.userKey
       get :make_admin, params: { id: @GeneralInfo.to_param, user: @general_info.userKey, template: 'admin/create' }
       expect(response).to redirect_to "#{show_profile_show_profile_path}?user_key=#{@general_info.userKey}"
@@ -63,6 +67,7 @@ RSpec.describe GeneralInfoController, type: :controller do
 
     it 'should not create an admin when there is no existing admin user' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                          company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX',
@@ -71,6 +76,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                          instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com',
                                          bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10),
                                          is_admin: false)
+=======
+                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10), is_admin: false)
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       session[:current_user_key] = SecureRandom.hex(10)
       get :make_admin, params: { id: @GeneralInfo.to_param, user: session[:current_user_key], template: 'admin/create' }
       expect(response).to redirect_to root_path
@@ -78,6 +86,7 @@ RSpec.describe GeneralInfoController, type: :controller do
 
     it 'should not create an admin' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                          company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX',
@@ -85,6 +94,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                          facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec',
                                          instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com',
                                          bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10), is_admin: true)
+=======
+                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10), is_admin: true)
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       session[:current_user_key] = @general_info.userKey
       get :make_admin, params: { id: @GeneralInfo.to_param, user: SecureRandom.hex(10), template: 'admin/create' }
       expect(response).to redirect_to root_path
@@ -96,6 +108,7 @@ RSpec.describe GeneralInfoController, type: :controller do
       session[:current_login_user] = { 'email' => 'test@gmail.com', 'password' => 'Test#1' }
       post :create,
            params: { general_info: { first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                      company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                      phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                      gender: 'Female', country: 'United States', state: 'TX',
@@ -103,6 +116,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                      facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec',
                                      instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com',
                                      bio: "I'm RSpec", specific_profile_id: 2 } }
+=======
+                                     company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2 } }
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       expect(response).to have_http_status(:no_content)
       session.delete(:current_login_user)
     end
@@ -111,12 +127,16 @@ RSpec.describe GeneralInfoController, type: :controller do
       session[:current_login_user] = { 'password' => 'Test#1' }
       post :create,
            params: { general_info: { first_name: '', last_name: '', highlights: '', company: '', industry: '',
+<<<<<<< HEAD
                                      job_name: '', emailaddr: 'test@gmail.com', month_ofbirth: 0o1, day_ofbirth: 31,
                                      phone: 892, year_ofbirth: 1985, gender: 'Female', country: '', state: '', city: '',
                                      compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec',
                                      linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec',
                                      personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec",
                                      specific_profile_id: 0 } }
+=======
+                                     job_name: '', emailaddr: 'test@gmail.com', month_ofbirth: 0o1, day_ofbirth: 31, phone: 892, year_ofbirth: 1985, gender: 'Female', country: '', state: '', city: '', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 0 } }
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       expect(response).to render_template :new
       session.delete(:current_login_user)
     end
@@ -124,6 +144,7 @@ RSpec.describe GeneralInfoController, type: :controller do
     it 'should not create an admin user if there already exists a user' do
       session[:current_login_user] = { 'email' => 'test@gmail.com', 'password' => 'Test#1' }
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                          company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX',
@@ -139,6 +160,12 @@ RSpec.describe GeneralInfoController, type: :controller do
                                      city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec',
                                      linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec',
                                      personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2 } }
+=======
+                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2, is_admin: true)
+      post :create,
+           params: { general_info: { first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+                                     company: 'test company', job_name: 'admin', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2 } }
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       session.delete(:current_login_user)
     end
 
@@ -147,6 +174,7 @@ RSpec.describe GeneralInfoController, type: :controller do
       post :create,
            params: { select_one: true,
                      general_info: { first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                      company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                      phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                      gender: 'Female', country: 'United States', state: 'TX',
@@ -154,6 +182,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                      facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec',
                                      instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com',
                                      bio: "I'm RSpec", specific_profile_id: 2 } }
+=======
+                                     company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2 } }
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       expect(response).to redirect_to general_info_new2_path
     end
 
@@ -162,6 +193,7 @@ RSpec.describe GeneralInfoController, type: :controller do
       post :create,
            params: { select_two: true,
                      general_info: { first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                      company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                      phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                      gender: 'Female', country: 'United States', state: 'TX',
@@ -169,6 +201,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                      facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec',
                                      instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com',
                                      bio: "I'm RSpec", specific_profile_id: 2 } }
+=======
+                                     company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2 } }
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       expect(response).to redirect_to search_engine_show_path
     end
   end
@@ -176,6 +211,7 @@ RSpec.describe GeneralInfoController, type: :controller do
   describe 'GET #edit' do
     it 'should get GeneralInfo' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                          company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States',
@@ -183,6 +219,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                          facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec',
                                          instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com',
                                          bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10))
+=======
+                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10))
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       session[:current_user_key] = @general_info.userKey
       get :edit, params: { id: @GeneralInfo.to_param, template: 'general_info/edit' }
       expect(response).to render_template :edit
@@ -199,6 +238,7 @@ RSpec.describe GeneralInfoController, type: :controller do
   describe 'GET #edit2' do
     it 'should get GeneralInfo' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                          company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX', city: 'Denver',
@@ -206,6 +246,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                          linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec',
                                          personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2,
                                          userKey: SecureRandom.hex(10))
+=======
+                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10))
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       session[:current_user_key] = @general_info.userKey
       get :edit2, params: { id: @GeneralInfo.to_param, template: 'general_info/edit2' }
       expect(response).to render_template :edit2
@@ -222,6 +265,7 @@ RSpec.describe GeneralInfoController, type: :controller do
   describe 'GET #edit_travel' do
     it 'should get GeneralInfo' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
+<<<<<<< HEAD
                                          company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX', city: 'Denver',
@@ -229,6 +273,9 @@ RSpec.describe GeneralInfoController, type: :controller do
                                          linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec',
                                          personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2,
                                          userKey: SecureRandom.hex(10))
+=======
+                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10))
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       session[:current_user_key] = @general_info.userKey
       get :edit_travel, params: { id: @GeneralInfo.to_param, template: 'general_info/edit_travel' }
       expect(response).to render_template :edit_travel

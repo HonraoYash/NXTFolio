@@ -234,9 +234,10 @@ function getRoot(node) {
  * @returns {Element} common offset parent
  */
 function findCommonOffsetParent(element1, element2) {
+  let result;
   // This check is needed to avoid errors in case one of the elements isn't defined for any reason
   if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
-    return window.document.documentElement;
+    result = window.document.documentElement;
   }
 
   // Here we make sure to give as "start" the element that comes first in the DOM
@@ -254,19 +255,20 @@ function findCommonOffsetParent(element1, element2) {
 
   if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start.contains(end)) {
     if (isOffsetContainer(commonAncestorContainer)) {
-      return commonAncestorContainer;
+      result = commonAncestorContainer;
     }
 
-    return getOffsetParent(commonAncestorContainer);
+    result = getOffsetParent(commonAncestorContainer);
   }
 
   // one of the nodes is inside shadowDOM, find which one
   var element1root = getRoot(element1);
   if (element1root.host) {
-    return findCommonOffsetParent(element1root.host, element2);
+    result = findCommonOffsetParent(element1root.host, element2);
   } else {
-    return findCommonOffsetParent(element1, getRoot(element2).host);
+    result = findCommonOffsetParent(element1, getRoot(element2).host);
   }
+  return result;
 }
 
 /**

@@ -117,3 +117,5 @@ gem 'webdrivers', require: false
 gem 'rubyzip', '~> 2.3.0'
 
 gem 'ruby-openai'
+
+gem 'rubocop', require: false

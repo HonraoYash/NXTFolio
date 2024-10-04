@@ -51,12 +51,21 @@ class GeneralInfo < ApplicationRecord
   #   self[:name]
   # end
 
+<<<<<<< HEAD
   def self.search(search_arg)
     location = nil
     location = search_arg[:location] if search_arg[:location].present? && (search_arg[:location] != '')
 
     distance = 20
     distance = Integer(search_arg[:distance]) if search_arg[:distance].present? && (search_arg[:distance] != '')
+=======
+  def self.search(searchArg)
+    location = nil
+    location = searchArg[:location] if searchArg[:location].present? && (searchArg[:location] != '')
+
+    distance = 20
+    distance = Integer(searchArg[:distance]) if searchArg[:distance].present? && (searchArg[:distance] != '')
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
 
     query = if !location.nil?
               GeneralInfo.near(location, distance)
@@ -64,6 +73,7 @@ class GeneralInfo < ApplicationRecord
               GeneralInfo.all
             end
 
+<<<<<<< HEAD
     if search_arg[:first_name].present?
       case search_arg[:first_name_regex]
       when 'Contains'
@@ -103,6 +113,47 @@ class GeneralInfo < ApplicationRecord
 
     if search_arg[:job_type].present? && (search_arg[:job_type] != 'Any')
       query = query.where('job_name ILIKE ?', search_arg[:job_type])
+=======
+    if searchArg[:first_name].present?
+      case searchArg[:first_name_regex]
+      when 'Contains'
+        searchArg[:first_name] = "%#{searchArg[:first_name]}%"
+      when 'Starts With'
+        searchArg[:first_name] = "#{searchArg[:first_name]}%"
+      when 'Ends With'
+        searchArg[:first_name] = "%#{searchArg[:first_name]}"
+      when 'Exactly Matches'
+        searchArg[:first_name] = searchArg[:first_name]
+      end
+      query = query.where('first_name ILIKE ?', searchArg[:first_name])
+    end
+
+    if searchArg[:last_name].present?
+      case searchArg[:last_name_regex]
+      when 'Contains'
+        searchArg[:last_name] = "%#{searchArg[:last_name]}%"
+      when 'Starts With'
+        searchArg[:last_name] = "#{searchArg[:last_name]}%"
+      when 'Ends With'
+        searchArg[:last_name] = "%#{searchArg[:last_name]}"
+      when 'Exactly Matches'
+        searchArg[:last_name] = searchArg[:last_name]
+      end
+      query = query.where('last_name ILIKE ?', searchArg[:last_name])
+    end
+
+    if searchArg[:gender].present? && (searchArg[:gender] != 'Any')
+      query = query.where('gender ILIKE ?', searchArg[:gender])
+    end
+
+    if searchArg[:compensation].present? && (searchArg[:compensation] != 'Any')
+      searchArg[:compensation] = "%#{searchArg[:compensation]}%"
+      query = query.where('compensation ILIKE ?', searchArg[:compensation])
+    end
+
+    if searchArg[:job_type].present? && (searchArg[:job_type] != 'Any')
+      query = query.where('job_name ILIKE ?', searchArg[:job_type])
+>>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
     end
 
     query
