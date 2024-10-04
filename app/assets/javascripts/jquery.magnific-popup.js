@@ -711,7 +711,7 @@ MagnificPopup.prototype = {
 	// Check to close popup or not
 	// "target" is an element that was clicked
 	_checkIfClose: function(target) {
-
+		let = result;
 		if($(target).hasClass(PREVENT_CLOSE_CLASS)) {
 			return;
 		}
@@ -720,12 +720,12 @@ MagnificPopup.prototype = {
 		var closeOnBg = mfp.st.closeOnBgClick;
 
 		if(closeOnContent && closeOnBg) {
-			return true;
+			result = true;
 		} else {
 
 			// We close the popup if click is on close button or on preloader. Or if there is no content.
 			if(!mfp.content || $(target).hasClass('mfp-close') || (mfp.preloader && target === mfp.preloader[0]) ) {
-				return true;
+				result = true;
 			}
 
 			// if click is outside the content
@@ -733,15 +733,15 @@ MagnificPopup.prototype = {
 				if(closeOnBg) {
 					// last check, if the clicked element is in DOM, (in case it's removed onclick)
 					if( $.contains(document, target) ) {
-						return true;
+						result = true;
 					}
 				}
 			} else if(closeOnContent) {
-				return true;
+				result = true;
 			}
 
 		}
-		return false;
+		return result || false;
 	},
 	_addClassToMFP: function(cName) {
 		mfp.bgOverlay.addClass(cName);
