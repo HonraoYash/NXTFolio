@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AddStateToSpecificPhotographers < ActiveRecord::Migration[5.0]
   def change
-  	add_column :specific_photographers, :state, :string
+    add_column :specific_photographers, :state, :string
   end
 end

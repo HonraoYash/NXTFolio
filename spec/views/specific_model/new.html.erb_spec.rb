@@ -1,26 +1,28 @@
-require "rails_helper"
+# frozen_string_literal: true
 
-RSpec.describe 'specific_model/new', :type => :view do
+require 'rails_helper'
+
+RSpec.describe 'specific_model/new', type: :view do
   it 'renders the new view' do
     assign(:specific_model, SpecificModel.create!({
-      :height_feet => 4,
-      :height_inches => 2,
-      :bust => 44,
-      :waist => 12,
-      :hips => 60,
-      :cups => "AA",
-      :shoe_size => "12",
-      :dress_size => 2,
-      :hair_color => "Brown",
-      :eye_color => "Blue",
-      :ethnicity => "Puerto Rican",
-      :skin_color => "White",
-      :shoot_nudes => "No",
-      :tattoos => "Yes",
-      :piercings => "Yes",
-      :experience => "Professional",
-      :genre => "Acting"
-    }))
+                                                    height_feet: 4,
+                                                    height_inches: 2,
+                                                    bust: 44,
+                                                    waist: 12,
+                                                    hips: 60,
+                                                    cups: 'AA',
+                                                    shoe_size: '12',
+                                                    dress_size: 2,
+                                                    hair_color: 'Brown',
+                                                    eye_color: 'Blue',
+                                                    ethnicity: 'Puerto Rican',
+                                                    skin_color: 'White',
+                                                    shoot_nudes: 'No',
+                                                    tattoos: 'Yes',
+                                                    piercings: 'Yes',
+                                                    experience: 'Professional',
+                                                    genre: 'Acting'
+                                                  }))
 
     render
 

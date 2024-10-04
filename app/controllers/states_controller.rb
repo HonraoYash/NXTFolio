@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # class StatesController < ApplicationController
 #     def index
 #         @states = State.where(country_id: params[:country_id]).order(:name)

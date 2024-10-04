@@ -1,27 +1,29 @@
-  # Check
+# frozen_string_literal: true
+
+# Check
 # Scenario: User can view the add comment button in their gallery
 Given(/^I am logged in as (.*) (.*)$/) do |first_name, last_name|
   visit root_path
-  click_on "Sign In"
-  fill_in "Your Email", :with => first_name + "." + last_name + "@example.com"
-  fill_in "Your Password", :with => "Test1234!"
-  click_on "SIGN IN"
+  click_on 'Sign In'
+  fill_in 'Your Email', with: "#{first_name}.#{last_name}@example.com"
+  fill_in 'Your Password', with: 'Test1234!'
+  click_on 'SIGN IN'
 end
 
 # Scenario: Users can successfully submit a comment on a portfolio posting
-And("I click the {string}") do |string|
+And('I click the {string}') do |string|
   # Example code to click the specified element
   click_link(string)
 end
 
-Then("I should be able to see the comment page") do
+Then('I should be able to see the comment page') do
   # Example code to verify the comment page is displayed
-  expect(page).to have_selector(".form-group") # Change the selector to match the comment form
+  expect(page).to have_selector('.form-group') # Change the selector to match the comment form
 end
 
-When("I fill in the comment box with details") do
+When('I fill in the comment box with details') do
   # Example code to fill in the comment box
-  find(".form-control").set("Great work on this portfolio!") # Change the selector to match the comment input field
+  find('.form-control').set('Great work on this portfolio!') # Change the selector to match the comment input field
 end
 
 # Then("I should be able to see the comment page") do
@@ -35,20 +37,20 @@ end
 #   find(".comment-input").set("Great work on this portfolio!")
 # end
 
-And("I click on {string} button") do |string|
+And('I click on {string} button') do |string|
   # Example code to click on the specified button
   click_button(string)
 end
 
-And("the new comment {string} should be displayed") do |string|
+And('the new comment {string} should be displayed') do |string|
   # Example code to verify the new comment is displayed
   expect(page).to have_content(string)
 end
 
-When("I leave the comment box empty") do
+When('I leave the comment box empty') do
   # Example code to leave the comment box empty
   # find(".comment-input").set("")
-  find(".form-control").set("") # Change the selector to match the comment input field
+  find('.form-control').set('') # Change the selector to match the comment input field
 end
 
 # Then("I should see an error message {string}") do |string|
@@ -56,12 +58,12 @@ end
 #   expect(page).to have_content(string)
 # end
 
-And("no new comment should be posted") do
+And('no new comment should be posted') do
   # Example code to verify that no new comment is posted
-  expect(page).not_to have_selector(".comment")
+  expect(page).not_to have_selector('.comment')
 end
 
-Given ("the following tagging exist") do |taggings|
+Given('the following tagging exist') do |taggings|
   taggings.hashes.each do |tagging|
     tagged_id = tagging['user_id']
     gallery_name = tagging['gallery']

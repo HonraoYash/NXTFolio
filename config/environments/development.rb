@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # To whitelist certain IPs
   # config.web_console.whitelisted_ips = '198.217.28.2/0'
@@ -6,17 +8,18 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: ENV['gmail_username']}
+  config.action_mailer.default_options = { from: ENV['gmail_username'] }
   # Settings for Gmail
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'gmail.com',
-    user_name:            ENV['gmail_username'],
-    password:             ENV['gmail_password'],
-    authentication:       'plain',
-    enable_starttls_auto: true  }
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    user_name: ENV['gmail_username'],
+    password: ENV['gmail_password'],
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # In the development environment your application's code is reloaded on
@@ -60,7 +63,7 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  Rails.application.config.assets.precompile += %w( search_engine.css )
+  Rails.application.config.assets.precompile += %w[search_engine.css]
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
@@ -70,7 +73,7 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  #config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.web_console.permissions = '192.168.0.0/16'
 end

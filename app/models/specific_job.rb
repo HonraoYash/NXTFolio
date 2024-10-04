@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # class SpecificJob < ApplicationRecord
 #   attr_accessor :allgenres
 

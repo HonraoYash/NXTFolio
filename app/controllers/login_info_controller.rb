@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LoginInfoController < ApplicationController
   # Variable that holds a params/object with all the attributes filled in
   def list
@@ -16,8 +18,8 @@ class LoginInfoController < ApplicationController
   # Create is called upon for the 1st part of profile creation
   def create
     @login_info = LoginInfo.new(login_info_params)
-    if LoginInfo.exists?(:email => @login_info[:email])
-      flash[:notice] = "Email already exists."
+    if LoginInfo.exists?(email: @login_info[:email])
+      flash[:notice] = 'Email already exists.'
       redirect_to root_path and return
     end
 
@@ -27,22 +29,22 @@ class LoginInfoController < ApplicationController
     #   flash[:notice] = "Enter your password! Please try again."
     #   redirect_to login_info_login_path and return
     # end
-    
+
     unless @login_info[:password] == login_info_params[:password_confirmation]
-      #@login_info.userKey = SecureRandom.hex(10)
+      # @login_info.userKey = SecureRandom.hex(10)
       flash[:notice] = "Passwords don't match! Please try again."
       redirect_to login_info_login_path and return
     end
 
     unless @login_info.validate_pwd == true
-      flash[:notice] = "Failed Saving beause Email/Password format is not valid !"
+      flash[:notice] = 'Failed Saving beause Email/Password format is not valid !'
       redirect_to login_info_login_path and return
     end
 
-    #session[:current_user_key] = @login_info.userKey
-    #flash[:notice] = "Account Created!"
+    # session[:current_user_key] = @login_info.userKey
+    # flash[:notice] = "Account Created!"
 
-    session[:current_login_user]=@login_info
+    session[:current_login_user] = @login_info
     redirect_to new_general_info_path
   end
 
@@ -56,9 +58,9 @@ class LoginInfoController < ApplicationController
   # Displays information pulled from database that matches the session key of the current room
   # Associated with the view used for update
   def edit
-    if LoginInfo.exists?(:userKey => session[:current_user_key])
-      @login_info = LoginInfo.find_by(userKey: session[:current_user_key])
-    end
+    return unless LoginInfo.exists?(userKey: session[:current_user_key])
+
+    @login_info = LoginInfo.find_by(userKey: session[:current_user_key])
   end
 
   # Saves the edit of the LoginInfo object to the database
@@ -70,22 +72,21 @@ class LoginInfoController < ApplicationController
       if @login_info.update(login_info_params)
         redirect_to '/show_profile'
       else
-        render :action => 'edit'
+        render action: 'edit'
       end
     else
       flash[:notice] = "Passwords don't match!"
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
-  # Not implemented   
-  def delete
-  end
+  # Not implemented
+  def delete; end
 
   # Associated with the view used for login_submit
   def login
     @login_info = LoginInfo.new
-    #render :template => :'new/login'
+    # render :template => :'new/login'
   end
 
   # Checks the email & password input against existing LoginInfo objects in database
@@ -93,34 +94,32 @@ class LoginInfoController < ApplicationController
   # Else displays error message
   def login_submit
     @login_info = LoginInfo.new(login_info_param)
-    if LoginInfo.exists?(:email => @login_info[:email])
+    if LoginInfo.exists?(email: @login_info[:email])
       @login_user = LoginInfo.find_by(email: @login_info[:email])
-      
-      if @login_user[:password] == @login_info[:password]
-        #login
 
-        if not @login_user[:enabled]
+      if @login_user[:password] == @login_info[:password]
+        # login
+
+        if !(@login_user[:enabled])
           flash[:notice] = 'This accound is currently disabled'
           redirect_to login_info_login_path
         else
           session[:current_user_key] = @login_user[:userKey]
           session[:login_time] = Time.current # Spring 2023
 
-          if @login_user[:is_admin] != nil
-            session[:is_admin] = true
-          end
-          flash[:success] = "You Have Successfully Logged In! Welcome Back!";
+          session[:is_admin] = true unless @login_user[:is_admin].nil?
+          flash[:success] = 'You Have Successfully Logged In! Welcome Back!'
 
           # create/update record in the user_activity_details table
-          current_user = GeneralInfo.find_or_create_by(userKey: session[:current_user_key])
+          GeneralInfo.find_or_create_by(userKey: session[:current_user_key])
           redirect_to root_path
         end
       else
-        flash[:notice] = "The Credentials You Provided Are Not Valid. Please Try Again."
+        flash[:notice] = 'The Credentials You Provided Are Not Valid. Please Try Again.'
         redirect_to login_info_login_path
       end
     else
-      flash[:notice] = "The Credentials You Provided Are Not Valid. Please Try Again."
+      flash[:notice] = 'The Credentials You Provided Are Not Valid. Please Try Again.'
       # redirect_to login_info_login_path
       redirect_to login_info_login_path
     end
@@ -136,8 +135,8 @@ class LoginInfoController < ApplicationController
     session[:current_user_key] = nil
     session[:is_admin] = false
     session.delete(:login_time)
-    flash[:success] = "You Have Successfully Logged Out! Hope To See You Soon!"
-    $current_user = nil #for facebook login usecase
+    flash[:success] = 'You Have Successfully Logged Out! Hope To See You Soon!'
+    $current_user = nil # for facebook login usecase
     # redirect_to destroy_user_session_path
     redirect_to destroy_user_session_path
   end

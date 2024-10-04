@@ -1,8 +1,10 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
+# frozen_string_literal: true
+
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'support', 'paths'))
 
 Given(/the following users exist/) do |users_table|
   users_table.hashes.each do |user|
-    name = user['name'].split(".")
+    name = user['name'].split('.')
     fake_password = user['password']
     job = user['job']
 
@@ -16,22 +18,21 @@ Given(/the following users exist/) do |users_table|
     login_info.userKey = userkey
     login_info.save!
 
-
     general_info = GeneralInfo.new
-    #general_info.profession = user['profession']
+    # general_info.profession = user['profession']
     general_info.id = user['id']
     general_info.first_name = first_name
     general_info.last_name = last_name
     general_info.userKey = userkey
-    general_info.company = "TestInc"
-    general_info.industry = "Fashion"
+    general_info.company = 'TestInc'
+    general_info.industry = 'Fashion'
     general_info.job_name = job
 
     general_info.highlights = user['highlights']
 
-    general_info.country = "United States"
-    #general_info.state = "Texas"
-    #general_info.city = "College Station"
+    general_info.country = 'United States'
+    # general_info.state = "Texas"
+    # general_info.city = "College Station"
     general_info.city = user['city']
     general_info.state = user['state']
     general_info.emailaddr = "#{first_name}.#{last_name}@example.com"
@@ -44,28 +45,26 @@ When(/^I click the button with id "([^"]*)"$/) do |id|
   button.click
 end
 
-
-
 Given(/^the following galleries exist$/) do |table|
   image_path = File.join(Rails.root, 'app', 'assets', 'images', '1.jpg')
   image_file = Rack::Test::UploadedFile.new(image_path, 'image/jpeg')
   table.hashes.each do |gallery_info|
     Gallery.create!(gallery_title: gallery_info['title'],
-      #id: '2',
-      gallery_description: gallery_info['description'],
-      gallery_totalRate: gallery_info['id'],
-      GeneralInfo_id: gallery_info['id'],
-      gallery_totalRate: gallery_info['total'],
-      gallery_totalRator: gallery_info['num'],
-      gallery_picture: [image_file])
+                    # id: '2',
+                    gallery_description: gallery_info['description'],
+                    gallery_totalRate: gallery_info['id'],
+                    GeneralInfo_id: gallery_info['id'],
+                    gallery_totalRate: gallery_info['total'],
+                    gallery_totalRator: gallery_info['num'],
+                    gallery_picture: [image_file])
   end
 end
 
-When("I upload an image") do
+When('I upload an image') do
   attach_file('test_picture', File.absolute_path('app/assets/images/4.jpg'), make_visible: true)
 end
 
-When("I upload multiple images") do
+When('I upload multiple images') do
   files = [
     File.absolute_path('app/assets/images/4.jpg'),
     File.absolute_path('app/assets/images/5.jpg'),
@@ -75,9 +74,6 @@ When("I upload multiple images") do
 
   attach_file('test_picture', files, make_visible: true, multiple: true)
 end
-
-
-
 
 Given(/^the following galleries for testing delete exist$/) do |table|
   image_path1 = File.join(Rails.root, 'app', 'assets', 'images', '1.jpg')
@@ -91,34 +87,25 @@ Given(/^the following galleries for testing delete exist$/) do |table|
 
   table.hashes.each do |gallery_info|
     Gallery.create!(gallery_title: gallery_info['title'],
-      #id: '1',
-      gallery_description: gallery_info['description'],
-      gallery_totalRate: gallery_info['id'],
-      GeneralInfo_id: gallery_info['id'],
-      gallery_totalRate: gallery_info['total'],
-      gallery_totalRator: gallery_info['num'],
-      gallery_picture: [image_file1, image_file2, image_file3])
+                    # id: '1',
+                    gallery_description: gallery_info['description'],
+                    gallery_totalRate: gallery_info['id'],
+                    GeneralInfo_id: gallery_info['id'],
+                    gallery_totalRate: gallery_info['total'],
+                    gallery_totalRator: gallery_info['num'],
+                    gallery_picture: [image_file1, image_file2, image_file3])
   end
 end
 
-
-
-
-
-
-
-
-
 And(/^the following reviews exist for galleries$/) do |table|
-  ids = [1,2,3,4]
+  ids = [1, 2, 3, 4]
   index = 0
   table.hashes.each do |review_info|
-    numss = review_info['rating'].split(",")
+    numss = review_info['rating'].split(',')
     nums = []
-    for x in numss
+    numss.each do |x|
       nums.push(x.to_i)
     end
-
 
     @gallery = Gallery.find_by(gallery_totalRate: ids[index])
     r = Review.create!(rating: nums, gallery_id: 1, general_info_id: 1)
@@ -127,16 +114,14 @@ And(/^the following reviews exist for galleries$/) do |table|
   end
 end
 
-
 #  Given(/the following galleries exist/) do |gallery_table|
 
-  
 #   gallery_table.hashes.each do |gall|
 
 #     gallery_info = Gallery.new
 #     gallery_info.gallery_title = gall['title']
 #     gallery_info.gallery_description = gall['description']
-    
+
 #     gallery_info.gallery_picture = [nil]
 #     gallery_info.GeneralInfo_id = 1
 
@@ -144,14 +129,13 @@ end
 #     gallery_info.save!
 #   end
 
-
 # end
 
 # Given(/the following reviews exist/) do |table|
 #   table.hashes.each do |review|
 #     review_info = Review.new
 #     nums = review['rating'].split(",")
-#     for x in nums 
+#     for x in nums
 #       x = x.to_i
 #     end
 #     review_info.rating = nums
@@ -162,8 +146,6 @@ end
 #   end
 # end
 
-
-
 Given(/the following countries exist/) do |location_table|
   location_table.hashes.each do |location|
     c = Country.create!(name: location['country'], iso3: location['country'])
@@ -173,7 +155,7 @@ Given(/the following countries exist/) do |location_table|
 end
 
 # a handy debugging step you can use in your scenarios to invoke 'pry' mid-scenario and poke around
-When /I debug/ do
+When(/I debug/) do
   binding.pry
 end
 
@@ -182,27 +164,24 @@ Then(/^I should be on (.+)$/) do |page_name|
   expect(current_path).to eq(path_to(page_name))
 end
 
-
-
-
 Given(/^I am logged in$/) do
   visit 'login_info/login'
-  fill_in "email", :with => @login_info.email
-  fill_in "password", :with => @login_info.password
-  click_button "Login"
+  fill_in 'email', with: @login_info.email
+  fill_in 'password', with: @login_info.password
+  click_button 'Login'
 end
 
 Given(/^I am logged in as "(.+)"$/) do |user|
   # get user info
-  name = user.split(".")
+  name = user.split('.')
   email = "#{name[0]}.#{name[1]}@example.com"
-  login_info = LoginInfo.find_by(email: email)
+  login_info = LoginInfo.find_by(email:)
 
   # login as user
   visit 'login_info/login'
-  fill_in "login_email", :with => login_info.email
-  fill_in "login_password", :with => login_info.password
-  click_button "SIGN IN"
+  fill_in 'login_email', with: login_info.email
+  fill_in 'login_password', with: login_info.password
+  click_button 'SIGN IN'
 end
 
 Given(/^I am on (.+)$/) do |page_name|
@@ -213,34 +192,31 @@ Given(/^I am searching$/) do
   visit 'search_engine/show'
 end
 
-Then /^I am with id gallery (\d+)$/ do |id|
+Then(/^I am with id gallery (\d+)$/) do |id|
   visit gallery_path(id)
 end
 
-
 When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field, value|
-  fill_in(field, :with => value)
+  fill_in(field, with: value)
 end
 
-When /^(?:|I )fill in the following:$/ do |fields|
+When(/^(?:|I )fill in the following:$/) do |fields|
   fields.rows_hash.each do |name, value|
-    fill_in(name, :with => value)
+    fill_in(name, with: value)
   end
 end
 
-
-
-Then /^(?:|I )should see the following fields:$/ do |fields|
+Then(/^(?:|I )should see the following fields:$/) do |fields|
   fields.rows_hash.each do |name, value|
     expect(find_field(name).value).to eq(value)
   end
 end
 
-When /^(?:|I )follow "([^"]*)"$/ do |link|
+When(/^(?:|I )follow "([^"]*)"$/) do |link|
   click_link(link)
 end
 
-When /^(?:|I )press "([^"]*)"$/ do |button|
+When(/^(?:|I )press "([^"]*)"$/) do |button|
   click_button(button)
 end
 
@@ -248,16 +224,16 @@ When('I click on submit') do
   find('#submit').click
 end
 
-When /^(?:|I )go to (.+)$/ do |page_name|
+When(/^(?:|I )go to (.+)$/) do |page_name|
   visit path_to(page_name)
 end
 
-When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
-  select(value, :from => field)
+When(/^(?:|I )select "([^"]*)" from "([^"]*)"$/) do |value, field|
+  select(value, from: field)
 end
 
-When(/^I move to Edit Profile and select Change Password$/) do 
-  visit "/login_info/edit"
+When(/^I move to Edit Profile and select Change Password$/) do
+  visit '/login_info/edit'
 end
 
 When(/^I click on "([^"]*)"$/) do |button|
@@ -271,7 +247,7 @@ end
 
 Then(/^(?:|I )should land on the Change Password page$/) do
   # puts(page.body)
-  expect(page).to have_content("Change Password")
+  expect(page).to have_content('Change Password')
 end
 
 # test sorting
@@ -279,8 +255,6 @@ Then(/^I should see "([^"]*)" to the left of "([^"]*)"$/) do |left, right|
   page_content = page.text
   expect(page_content).to match(/#{left}.*#{right}/m)
 end
-
-
 
 Then(/^(?:|I )should not see "([^"]*)"$/) do |text|
   expect(page).not_to have_content(text)
@@ -300,39 +274,35 @@ When(/^I hover over the "([^"]*)" element$/) do |element|
   page.driver.browser.action.move_to(target_element.native).perform
 end
 
-
-Given (/"(.+)" sends a message to "(.+)" saying "(.+)"/) do |from_user, to_user, msg|
+Given(/"(.+)" sends a message to "(.+)" saying "(.+)"/) do |from_user, to_user, msg|
   step "I am logged in as \"#{from_user}\""
-  visit path_to "the DM page"
+  visit path_to 'the DM page'
   step "I select \"#{to_user.gsub('.', ' ')}\" chat"
-  fill_in("body", :with => msg)
-  click_link_or_button "send"
-  click_link_or_button "Log out"
+  fill_in('body', with: msg)
+  click_link_or_button 'send'
+  click_link_or_button 'Log out'
 end
-When("I click on the image with alt text {string}") do |alt_text|
+When('I click on the image with alt text {string}') do |alt_text|
   # Find the image element with the specified alt text
   image = find("img[alt='#{alt_text}']")
 
   # Click on the image element
   image.click
-
 end
 
-  # todo! create a message
-  # from_name = from_user.split(".")
-  # from_email = "#{from_name[0]}.#{from_name[1]}@example.com"
-  # from_info = GeneralInfo.find_by(email: from_email)
+# todo! create a message
+# from_name = from_user.split(".")
+# from_email = "#{from_name[0]}.#{from_name[1]}@example.com"
+# from_info = GeneralInfo.find_by(email: from_email)
 
-  # to_name = to_user.split(".")
-  # to_email = "#{to_name[0]}.#{to_name[1]}@example.com"
-  # to_info = GeneralInfo.find_by(email: to_email)
+# to_name = to_user.split(".")
+# to_email = "#{to_name[0]}.#{to_name[1]}@example.com"
+# to_info = GeneralInfo.find_by(email: to_email)
 
+# users = [from_user.id, to_user.id].sort
+# room_name = "private_#{users[0]}_#{users[1]}"
+# @single_room = Room.where(name: @room_name).first || Room.create_private_room([@user, @chatting_with], @room_name)
 
+# @message = Message.create(general_info_id: @user[:id], room_id: @single_room[:id], body: params[:body], chatting_with: @chatid)
 
-  # users = [from_user.id, to_user.id].sort
-  # room_name = "private_#{users[0]}_#{users[1]}"
-  # @single_room = Room.where(name: @room_name).first || Room.create_private_room([@user, @chatting_with], @room_name)
-
-  # @message = Message.create(general_info_id: @user[:id], room_id: @single_room[:id], body: params[:body], chatting_with: @chatid)
-
-#end
+# end
