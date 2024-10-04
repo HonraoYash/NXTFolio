@@ -7,24 +7,23 @@ module Admin
 
     def landing
       # GeneralInfo.load_Job_File #No longer needed- Job file is loaded in initializer
-      @hasPermission = false
+      @hasPermission = user_has_permission?
       print('Current USer Key is: ')
       print(session[:current_user_key])
-      if !session[:current_user_key].nil? && GeneralInfo.exists?(userKey: session[:current_user_key])
-        general_info = GeneralInfo.find_by(userKey: session[:current_user_key])
-        @hasPermission = general_info.is_admin
-      end
       return unless @hasPermission == false
 
       redirect_to '/login_info/login'
     end
 
+    def user_has_permission?
+      user_key = session[:current_user_key]
+      return false if user_key.nil?
+      general_info = GeneralInfo.find_by(userKey: user_key)
+      general_info&.is_admin || false
+    end
+
     def create
-      @hasPermission = false
-      if !session[:current_user_key].nil? && GeneralInfo.exists?(userKey: session[:current_user_key])
-        general_info = GeneralInfo.find_by(userKey: session[:current_user_key])
-        @hasPermission = general_info.is_admin
-      end
+      @hasPermission = user_has_permission?
       # if(@hasPermission == false)
       #   redirect_to "/login_info/login"
       # end
@@ -51,11 +50,7 @@ module Admin
     end
 
     def edit
-      @hasPermission = false
-      if !session[:current_user_key].nil? && GeneralInfo.exists?(userKey: session[:current_user_key])
-        general_info = GeneralInfo.find_by(userKey: session[:current_user_key])
-        @hasPermission = general_info.is_admin
-      end
+      @hasPermission = user_has_permission?
       redirect_to '/login_info/login' if @hasPermission == false
 
       @jobs = []
@@ -115,11 +110,7 @@ module Admin
     end
 
     def delete
-      @hasPermission = false
-      if !session[:current_user_key].nil? && GeneralInfo.exists?(userKey: session[:current_user_key])
-        general_info = GeneralInfo.find_by(userKey: session[:current_user_key])
-        @hasPermission = general_info.is_admin
-      end
+      @hasPermission = user_has_permission?
       redirect_to '/login_info/login' if @hasPermission == false
 
       @jobs = []
