@@ -18,6 +18,7 @@ module Admin
     def user_has_permission?
       user_key = session[:current_user_key]
       return false if user_key.nil?
+
       general_info = GeneralInfo.find_by(userKey: user_key)
       general_info&.is_admin || false
     end

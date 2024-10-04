@@ -139,22 +139,13 @@ RSpec.describe GalleriesController, type: :controller do
       session[:current_user_key] = SecureRandom.hex(10)
       general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
                                         company: 'test company', industry: 'test industry', emailaddr: 'test1@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male', country: 'United States', state: 'TX', city: 'Houston', userKey: session[:current_user_key])
-<<<<<<< HEAD
-      general_info_two = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                            company: 'test company', industry: 'test industry', emailaddr: 'test2@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Austin', userKey: session[:current_user_key])
-=======
       general_info_2 = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
                                           company: 'test company', industry: 'test industry', emailaddr: 'test2@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Austin', userKey: session[:current_user_key])
->>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       gallery = Gallery.create(GeneralInfo_id: general_info.id, gallery_title: 'test', gallery_description: 'test',
                                gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       get :create_tagging,
           params: { id: gallery.id,
-<<<<<<< HEAD
-                    gallery_tagging: { tagged_user_id: general_info_two.id, invited_email: 'test2@gmail.com' } }
-=======
                     gallery_tagging: { tagged_user_id: general_info_2.id, invited_email: 'test2@gmail.com' } }
->>>>>>> ba307ac00ee83b875eab1629d1aaf65172188590
       expect(response).to redirect_to show_profile_show_profile_path
     end
     it 'should not create a tagging' do
