@@ -2,6 +2,8 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0728492bc199d77a82b7/test_coverage)](https://codeclimate.com/github/FashioNXT/NXTFolio/test_coverage)
 
 Heroku link - https://nxtfolio.herokuapp.com/
+Code Climate Report - https://codeclimate.com/github/Caroline-tamu/NXTFolio
+Taiga Tracker link - https://tree.taiga.io/project/honraoyash-fashionxt-nxtfolio/timeline
 
 Agile Team Working Agreement 
 Project Title: NXTFolio
