@@ -48,7 +48,8 @@ RSpec.describe GeneralInfoController, type: :controller do
   describe 'GET #make_admin' do
     it 'should create an admin when there is an existing admin user' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
+                                         company: 'test company', industry: 'test industry',
+                                         emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX',
                                          city: 'Denver', compensation: 'Any Payment',
@@ -63,7 +64,8 @@ RSpec.describe GeneralInfoController, type: :controller do
 
     it 'should not create an admin when there is no existing admin user' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
+                                         company: 'test company', industry: 'test industry',
+                                         emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX',
                                          city: 'Denver', compensation: 'Any Payment',
@@ -78,13 +80,15 @@ RSpec.describe GeneralInfoController, type: :controller do
 
     it 'should not create an admin' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
+                                         company: 'test company', industry: 'test industry',
+                                         emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX',
                                          city: 'Denver', compensation: 'Any Payment',
                                          facebook_link: 'www.fb.com/rspec', linkedIn_link: 'www.li.com/rspec',
                                          instagram_link: 'www.ig.com/rspec', personalWebsite_link: 'www.rspec.com',
-                                         bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10), is_admin: true)
+                                         bio: "I'm RSpec", specific_profile_id: 2, userKey: SecureRandom.hex(10),
+                                         is_admin: true)
       session[:current_user_key] = @general_info.userKey
       get :make_admin, params: { id: @GeneralInfo.to_param, user: SecureRandom.hex(10), template: 'admin/create' }
       expect(response).to redirect_to root_path
@@ -176,7 +180,8 @@ RSpec.describe GeneralInfoController, type: :controller do
   describe 'GET #edit' do
     it 'should get GeneralInfo' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
+                                         company: 'test company', industry: 'test industry',
+                                         emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States',
                                          state: 'TX', city: 'Denver', compensation: 'Any Payment',
@@ -199,13 +204,14 @@ RSpec.describe GeneralInfoController, type: :controller do
   describe 'GET #edit2' do
     it 'should get GeneralInfo' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
+                                         company: 'test company', industry: 'test industry',
+                                         emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX', city: 'Denver',
                                          compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec',
                                          linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec',
-                                         personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2,
-                                         userKey: SecureRandom.hex(10))
+                                         personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec",
+                                         specific_profile_id: 2, userKey: SecureRandom.hex(10))
       session[:current_user_key] = @general_info.userKey
       get :edit2, params: { id: @GeneralInfo.to_param, template: 'general_info/edit2' }
       expect(response).to render_template :edit2
@@ -222,13 +228,14 @@ RSpec.describe GeneralInfoController, type: :controller do
   describe 'GET #edit_travel' do
     it 'should get GeneralInfo' do
       @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                         company: 'test company', industry: 'test industry', emailaddr: 'test@gmail.com',
+                                         company: 'test company', industry: 'test industry',
+                                         emailaddr: 'test@gmail.com',
                                          phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
                                          gender: 'Female', country: 'United States', state: 'TX', city: 'Denver',
                                          compensation: 'Any Payment', facebook_link: 'www.fb.com/rspec',
                                          linkedIn_link: 'www.li.com/rspec', instagram_link: 'www.ig.com/rspec',
-                                         personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec", specific_profile_id: 2,
-                                         userKey: SecureRandom.hex(10))
+                                         personalWebsite_link: 'www.rspec.com', bio: "I'm RSpec",
+                                         specific_profile_id: 2, userKey: SecureRandom.hex(10))
       session[:current_user_key] = @general_info.userKey
       get :edit_travel, params: { id: @GeneralInfo.to_param, template: 'general_info/edit_travel' }
       expect(response).to render_template :edit_travel

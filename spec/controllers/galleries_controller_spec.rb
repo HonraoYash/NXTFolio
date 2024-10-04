@@ -125,7 +125,11 @@ RSpec.describe GalleriesController, type: :controller do
     it 'should calculate the average review' do
       session[:current_user_key] = SecureRandom.hex(10)
       general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                        company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', userKey: session[:current_user_key])
+                                        company: 'test company', industry: 'test industry',
+                                        emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1,
+                                        day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female',
+                                        country: 'United States', state: 'TX', city: 'Denver',
+                                        userKey: session[:current_user_key])
       gallery = Gallery.create(GeneralInfo_id: general_info.id, gallery_title: 'test', gallery_description: 'test',
                                gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       Review.create(general_info_id: general_info.id, gallery_id: gallery.id, rating: 5.0)
@@ -138,11 +142,20 @@ RSpec.describe GalleriesController, type: :controller do
     it 'should create a tagging' do
       session[:current_user_key] = SecureRandom.hex(10)
       general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                        company: 'test company', industry: 'test industry', emailaddr: 'test1@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male', country: 'United States', state: 'TX', city: 'Houston', userKey: session[:current_user_key])
+                                        company: 'test company', industry: 'test industry',
+                                        emailaddr: 'test1@gmail.com', phone: 892, month_ofbirth: 0o1,
+                                        day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male',
+                                        country: 'United States', state: 'TX', city: 'Houston',
+                                        userKey: session[:current_user_key])
       general_info_2 = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                          company: 'test company', industry: 'test industry', emailaddr: 'test2@gmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Austin', userKey: session[:current_user_key])
+                                          company: 'test company', industry: 'test industry',
+                                          emailaddr: 'test2@gmail.com', phone: 892, month_ofbirth: 0o1,
+                                          day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female',
+                                          country: 'United States', state: 'TX', city: 'Austin',
+                                          userKey: session[:current_user_key])
       gallery = Gallery.create(GeneralInfo_id: general_info.id, gallery_title: 'test', gallery_description: 'test',
-                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
+                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'),
+                               fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       get :create_tagging,
           params: { id: gallery.id,
                     gallery_tagging: { tagged_user_id: general_info_2.id, invited_email: 'test2@gmail.com' } }
@@ -150,9 +163,12 @@ RSpec.describe GalleriesController, type: :controller do
     end
     it 'should not create a tagging' do
       GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                         company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', userKey: session[:current_user_key])
+                         company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com',
+                         phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female',
+                         country: 'United States', state: 'TX', city: 'Denver', userKey: session[:current_user_key])
       gallery = Gallery.create(GeneralInfo_id: 1, gallery_title: 'test', gallery_description: 'test',
-                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
+                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'),
+                               fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       get :create_tagging, params: { id: gallery.id, gallery_tagging: { tagged_user_id: 543 } }
       expect(response).to redirect_to show_profile_show_profile_path
     end
@@ -161,9 +177,13 @@ RSpec.describe GalleriesController, type: :controller do
   describe 'POST #destroy_tagging' do
     it 'should destroy a tagging' do
       general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                        company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male', country: 'United States', state: 'TX', city: 'Houston')
+                                        company: 'test company', industry: 'test industry',
+                                        emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1,
+                                        day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male',
+                                        country: 'United States', state: 'TX', city: 'Houston')
       gallery = Gallery.create(GeneralInfo_id: general_info.id, gallery_title: 'test', gallery_description: 'test',
-                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
+                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'),
+                               fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       gallery_tagging = GalleryTagging.create(general_info_id: general_info.id, gallery_id: gallery.id)
       delete :destroy_tagging, params: { id: gallery_tagging.id, gallery_id: gallery.id }
       expect(flash[:notice]).to eq('Collaborator removed successfully')
@@ -174,7 +194,8 @@ RSpec.describe GalleriesController, type: :controller do
   describe 'GET #add_comment' do
     it 'should get a comment' do
       gallery = Gallery.create(GeneralInfo_id: 1, gallery_title: 'test', gallery_description: 'test',
-                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
+                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'),
+                               fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       get :add_comment, params: { id: gallery.id }
     end
   end
@@ -182,9 +203,13 @@ RSpec.describe GalleriesController, type: :controller do
   describe 'POST #post_comment' do
     it 'should post a comment' do
       general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                        company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male', country: 'United States', state: 'TX', city: 'Houston')
+                                        company: 'test company', industry: 'test industry',
+                                        emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1,
+                                        day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male',
+                                        country: 'United States', state: 'TX', city: 'Houston')
       gallery = Gallery.create(GeneralInfo_id: general_info.id, gallery_title: 'test', gallery_description: 'test',
-                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
+                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'),
+                               fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       Comment.create(gallery_id: gallery.id)
       post :post_comment, params: { id: gallery.id, comment: { body: 'Test comment' } }
       expect(flash[:notice]).to eq('Comment added successfully.')
@@ -193,9 +218,13 @@ RSpec.describe GalleriesController, type: :controller do
 
     it 'should not post a comment' do
       general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                        company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male', country: 'United States', state: 'TX', city: 'Houston')
+                                        company: 'test company', industry: 'test industry',
+                                        emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1,
+                                        day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male',
+                                        country: 'United States', state: 'TX', city: 'Houston')
       gallery = Gallery.create(GeneralInfo_id: general_info.id, gallery_title: 'test', gallery_description: 'test',
-                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
+                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'),
+                               fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       Comment.create(gallery_id: gallery.id)
       post :post_comment, params: { id: gallery.id, comment: { comment_by: 'test' } }
       expect(flash[:error]).to eq('Comment cannot be empty.')
@@ -206,18 +235,26 @@ RSpec.describe GalleriesController, type: :controller do
   describe 'POST #create_tag' do
     it 'should create a tag' do
       general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                        company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male', country: 'United States', state: 'TX', city: 'Houston')
+                                        company: 'test company', industry: 'test industry',
+                                        emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1,
+                                        day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male',
+                                        country: 'United States', state: 'TX', city: 'Houston')
       gallery = Gallery.create(GeneralInfo_id: general_info.id, gallery_title: 'test', gallery_description: 'test',
-                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
+                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'),
+                               fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       post :create_tag, params: { id: gallery.id, tag: { body: 'Test tag' } }
       expect(response).to redirect_to gallery_path(gallery)
     end
 
     it 'should not create a tag' do
       general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                        company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male', country: 'United States', state: 'TX', city: 'Houston')
+                                        company: 'test company', industry: 'test industry',
+                                        emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1,
+                                        day_ofbirth: 31, year_ofbirth: 1985, gender: 'Male',
+                                        country: 'United States', state: 'TX', city: 'Houston')
       gallery = Gallery.create(GeneralInfo_id: general_info.id, gallery_title: 'test', gallery_description: 'test',
-                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'), fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
+                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg'),
+                               fixture_file_upload('2.jpg', 'image/jpg'), fixture_file_upload('3.jpg', 'image/jpg')])
       post :create_tag, params: { id: gallery.id, tag: { body: nil } }
       expect(response).to render_template :add_tag
     end
