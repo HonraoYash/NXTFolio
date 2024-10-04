@@ -41,7 +41,7 @@ class LoginInfoTest < ActiveSupport::TestCase
 
   def test_login_infos_infos_search
     perl_search = LoginInfo.search email: general_infos(:perl_cb)
-    perl_search1 = LoginInfo.search email: general_infos(:java_cb)
-    assert_not_equal perl_search, perl_search1
+    perl_search_one = LoginInfo.search email: general_infos(:java_cb)
+    assert_not_equal perl_search, perl_search_one
   end
 end

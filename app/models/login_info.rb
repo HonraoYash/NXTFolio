@@ -11,26 +11,26 @@ class LoginInfo < ApplicationRecord
 
   attr_accessor :password_confirmation
 
-  def self.search(searchArg)
-    if searchArg[:email_regex].nil? || (searchArg[:email_regex] == '')
-      return LoginInfo.where('email ILIKE ?', searchArg[:email])
+  def self.search(search_arg)
+    if search_arg[:email_regex].nil? || (search_arg[:email_regex] == '')
+      return LoginInfo.where('email ILIKE ?', search_arg[:email])
     end
 
-    if searchArg[:email_regex].present? && (searchArg[:email_regex] != '') && searchArg[:email].present? && (searchArg[:email] != '')
-      case searchArg[:email_regex]
+    if search_arg[:email_regex].present? && (search_arg[:email_regex] != '') && search_arg[:email].present? && (search_arg[:email] != '')
+      case search_arg[:email_regex]
       when 'Contains'
-        searchArg[:email] = "%#{searchArg[:email]}%"
+        search_arg[:email] = "%#{search_arg[:email]}%"
       when 'Starts With'
-        searchArg[:email] = "#{searchArg[:email]}%"
+        search_arg[:email] = "#{search_arg[:email]}%"
       when 'Ends With'
-        searchArg[:email] = "%#{searchArg[:email]}"
+        search_arg[:email] = "%#{search_arg[:email]}"
       when 'Exactly Matches'
-        searchArg[:email] = searchArg[:email]
+        search_arg[:email] = search_arg[:email]
       end
     else
-      searchArg[:email] = '%'
+      search_arg[:email] = '%'
     end
-    LoginInfo.where('email ILIKE ?', searchArg[:email])
+    LoginInfo.where('email ILIKE ?', search_arg[:email])
   end
 
   def password_requirements_are_met

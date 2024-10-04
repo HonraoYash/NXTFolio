@@ -6,7 +6,10 @@ RSpec.describe ReviewsController, type: :controller do
   before do
     session[:current_user_key] = SecureRandom.hex(10)
     @general_info = GeneralInfo.create(first_name: 'R', last_name: 'Spec', highlights: 'test highlights',
-                                       company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com', phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985, gender: 'Female', country: 'United States', state: 'TX', city: 'Denver', userKey: session[:current_user_key])
+                                       company: 'test company', industry: 'test industry', emailaddr: 'testgmail.com',
+                                       phone: 892, month_ofbirth: 0o1, day_ofbirth: 31, year_ofbirth: 1985,
+                                       gender: 'Female', country: 'United States',
+                                       state: 'TX', city: 'Denver', userKey: session[:current_user_key])
     @gallery = Gallery.create(GeneralInfo_id: @general_info.id, gallery_title: 'test', gallery_description: 'test',
                               gallery_picture: [fixture_file_upload('1.jpg', 'image/jpg')])
   end

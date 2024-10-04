@@ -5,11 +5,13 @@ require 'rails_helper'
 RSpec.describe GeneralInfo, type: :model do
   let(:general_info) do
     described_class.create(id: 11, first_name: 'John', last_name: 'Johns', city: 'Houston', state: 'Texas',
-                           country: 'United States', company: 'test company', industry: 'Creator', highlights: 'test', emailaddr: 'abcd@email.com')
+                           country: 'United States', company: 'test company', industry: 'Creator',
+                           highlights: 'test', emailaddr: 'abcd@email.com')
   end
-  let(:general_info_2) do
+  let(:general_info_two) do
     described_class.create(id: 10, first_name: 'David', last_name: 'Johns', city: 'Houston', state: 'Texas',
-                           country: 'United States', company: 'test company', industry: 'Creator', highlights: 'test', emailaddr: 'abcd2@email.com')
+                           country: 'United States', company: 'test company', industry: 'Creator',
+                           highlights: 'test', emailaddr: 'abcd2@email.com')
   end
 
   describe '#address' do
@@ -29,7 +31,7 @@ RSpec.describe GeneralInfo, type: :model do
   describe '#follow' do
     subject(:follow) { general_info.follow(10) }
     it 'follow the given user' do
-      expect(general_info_2.id).to eq(10)
+      expect(general_info_two.id).to eq(10)
       expect(follow).not_to eq(nil)
     end
   end
@@ -38,7 +40,7 @@ RSpec.describe GeneralInfo, type: :model do
     subject(:follow) { general_info.follow(10) }
     subject(:unfollow) { general_info.unfollow(10) }
     it 'unfollow the given user' do
-      expect(general_info_2.id).to eq(10)
+      expect(general_info_two.id).to eq(10)
       expect(unfollow).not_to eq(nil)
     end
   end
@@ -47,47 +49,47 @@ RSpec.describe GeneralInfo, type: :model do
     subject(:follow) { general_info.follow(10) }
     subject(:follow_list) { general_info.get_users_they_follow }
     it 'get_users_they_follow' do
-      expect(general_info_2.id).to eq(10)
+      expect(general_info_two.id).to eq(10)
       expect(follow_list).not_to eq(nil)
     end
   end
 
   describe '#get_followers' do
     subject(:follow) { general_info.follow(10) }
-    subject(:follower_list) { general_info_2.get_followers }
+    subject(:follower_list) { general_info_two.get_followers }
     it 'get_followers' do
-      expect(general_info_2.id).to eq(10)
+      expect(general_info_two.id).to eq(10)
       expect(follower_list).not_to eq(nil)
     end
   end
 
   describe '.search' do
-    subject(:search_result_1) do
-      GeneralInfo.search({ first_name: 'david', last_name: 'Johns', gender: 'male', compensation: '100', job_type: 'Model',
-                           location: 'Houston', distance: '100' })
+    subject(:search_result_one) do
+      GeneralInfo.search({ first_name: 'david', last_name: 'Johns', gender: 'male', compensation: '100',
+                           job_type: 'Model', location: 'Houston', distance: '100' })
     end
-    subject(:search_result_2) do
+    subject(:search_result_two) do
       GeneralInfo.search({ first_name: 'david', last_name: 'Johns', first_name_regex: 'Contains',
                            last_name_regex: 'Contains' })
     end
-    subject(:search_result_3) do
+    subject(:search_result_three) do
       GeneralInfo.search({ first_name: 'david', last_name: 'Johns', first_name_regex: 'Starts With',
                            last_name_regex: 'Starts With' })
     end
-    subject(:search_result_4) do
+    subject(:search_result_four) do
       GeneralInfo.search({ first_name: 'david', last_name: 'Johns', first_name_regex: 'Ends With',
                            last_name_regex: 'Ends With' })
     end
-    subject(:search_result_5) do
+    subject(:search_result_five) do
       GeneralInfo.search({ first_name: 'david', last_name: 'Johns', first_name_regex: 'Exactly Matches',
                            last_name_regex: 'Exactly Matches' })
     end
     it 'search for users' do
-      expect(search_result_1).not_to eq(nil)
-      expect(search_result_2).not_to eq(nil)
-      expect(search_result_3).not_to eq(nil)
-      expect(search_result_4).not_to eq(nil)
-      expect(search_result_5).not_to eq(nil)
+      expect(search_result_one).not_to eq(nil)
+      expect(search_result_two).not_to eq(nil)
+      expect(search_result_three).not_to eq(nil)
+      expect(search_result_four).not_to eq(nil)
+      expect(search_result_five).not_to eq(nil)
     end
   end
 

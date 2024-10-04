@@ -31,7 +31,8 @@ RSpec.describe SpecificPhotographerController, type: :controller do
     it 'should get SpecificPhotographer' do
       session[:current_user_key] = SecureRandom.hex(10)
       @specific_photographer = SpecificPhotographer.create(influencers: 'Me', specialties: 'Being cool',
-                                                           compensation: 'Any', experience: '11+ years', genre: 'Acting', user_key: session[:current_user_key])
+                                                           compensation: 'Any', experience: '11+ years', genre: 'Acting',
+                                                           user_key: session[:current_user_key])
       get :edit, params: { id: @SpecificPhotographer.to_param, template: 'specific_photographer/edit' }
     end
 
@@ -57,7 +58,8 @@ RSpec.describe SpecificPhotographerController, type: :controller do
   describe 'DELETE #destroy' do
     it 'should delete SpecificPhotographer' do
       @specific_photographer = SpecificPhotographer.create(influencers: 'Me', specialties: 'Being cool',
-                                                           compensation: 'Any', experience: '11+ years', genre: 'Acting', user_key: SecureRandom.hex(10))
+                                                           compensation: 'Any', experience: '11+ years', genre: 'Acting',
+                                                           user_key: SecureRandom.hex(10))
       delete :destroy, params: { user_key: @specific_photographer.user_key }
       expect(response).to redirect_to root_path
     end
