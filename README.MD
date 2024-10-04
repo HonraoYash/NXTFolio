@@ -2,11 +2,15 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0728492bc199d77a82b7/test_coverage)](https://codeclimate.com/github/FashioNXT/NXTFolio/test_coverage)
 
 Heroku link - https://nxtfolio.herokuapp.com/
+
 Code Climate Report - https://codeclimate.com/github/Caroline-tamu/NXTFolio
+
 Taiga Tracker link - https://tree.taiga.io/project/honraoyash-fashionxt-nxtfolio/timeline
 
 Agile Team Working Agreement 
+
 Project Title: NXTFolio
+
 Team Members:
 Omar Khater
 Yash Honrao
@@ -67,6 +71,7 @@ If you are falling behind on a task, notify the team immediately to discuss how 
 12. Learning and Adaptation
 Be open to learning new tools, technologies, and Agile practices as the project evolves.
 Adapt processes if they are not working for the team.
+
 Signatures:
 Omar Khater
 Yash Honrao
