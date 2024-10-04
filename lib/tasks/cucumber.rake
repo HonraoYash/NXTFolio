@@ -37,8 +37,8 @@ begin
 
     task :statsetup do
       require 'rails/code_statistics'
-      ::STATS_DIRECTORIES << %w(Cucumber\ features features) if File.exist?('features')
-      ::CodeStatistics::TEST_TYPES << "Cucumber features" if File.exist?('features')
+      STATS_DIRECTORIES << %w(Cucumber\ features features) if File.exist?('features')
+      CodeStatistics::TEST_TYPES << "Cucumber features" if File.exist?('features')
     end
 
     task :annotations_setup do
@@ -61,6 +61,7 @@ begin
 
   # In case we don't have the generic Rails test:prepare hook, append a no-op task that we can depend upon.
   task 'test:prepare' do
+    # Task preparation logic goes here
   end
 
   task stats: 'cucumber:statsetup'

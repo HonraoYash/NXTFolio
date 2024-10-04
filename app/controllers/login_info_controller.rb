@@ -99,10 +99,7 @@ class LoginInfoController < ApplicationController
       if @login_user[:password] == @login_info[:password]
         #login
 
-        if not @login_user[:enabled]
-          flash[:notice] = 'This accound is currently disabled'
-          redirect_to login_info_login_path
-        else
+        if @login_user[:enabled]
           session[:current_user_key] = @login_user[:userKey]
           session[:login_time] = Time.current # Spring 2023
 
@@ -114,6 +111,9 @@ class LoginInfoController < ApplicationController
           # create/update record in the user_activity_details table
           current_user = GeneralInfo.find_or_create_by(userKey: session[:current_user_key])
           redirect_to root_path
+        else
+          flash[:notice] = 'This accound is currently disabled'
+          redirect_to login_info_login_path
         end
       else
         flash[:notice] = "The Credentials You Provided Are Not Valid. Please Try Again."

@@ -82,5 +82,5 @@ Given(/^I am a professional and want to add my travel information$/) do
   end
   
   Then(/^that user should be able to see my travel information$/) do
-  
+    # Pending implementation
   end

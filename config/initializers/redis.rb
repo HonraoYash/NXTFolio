@@ -36,7 +36,7 @@ if ENV["REDIS_URL"].nil? || ENV["REDIS_URL"].empty?
 	puts "Redis Host: local filesystem"
 	$redis = MockRedis.new()
 else
-	puts "Redis Host: #{ENV["REDIS_URL"]}"
-	$redis = Redis.new(url: ENV["REDIS_URL"])
+	puts "Redis Host: #{ENV.fetch("REDIS_URL", nil)}"
+	$redis = Redis.new(url: ENV.fetch("REDIS_URL", nil))
 end
 

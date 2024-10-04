@@ -1,19 +1,19 @@
 # Search Professional Details Step Definitions
 
 When(/^I click on search button and search by profession/) do
-  
+  # Pending implementation
 end
 
 Then(/I should see "No matches"/) do
-
+  # Pending implementation
 end
 
 When(/^I click on search button and search by tags/) do
-  
+  # Pending implementation
 end
 
 When(/^I click on search button/) do
-
+  # Pending implementation
 end
 
 #Given (/^I am a valid user$/) do

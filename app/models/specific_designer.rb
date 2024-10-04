@@ -48,7 +48,21 @@
      end
 
      # 1st check that there are any params worth searching
-     if !experience_arg.nil?
+     if experience_arg.nil?
+       if(@genre_checked_array.length > 0)
+         # Have no experience to search by but have genre-checks
+         # Return genre-checked results
+         @genre_checked_array.each do |user_object|
+           @return_array.push(user_object[:user_key])
+         end
+       else
+         # Have no experience to search by and no genre-checked results
+         # Return everything in the table
+         SpecificDesigner.all.find_each do |user_object|
+           @return_array.push(user_object[:user_key])
+         end
+       end
+     else
        if(@genre_checked_array.length > 0)
          # Can search by experience & previous genre-checked results
          @genre_checked_array.each do |user_object|
@@ -63,20 +77,6 @@
            if SpecificDesigner.where("user_key ILIKE ?", user_object[:user_key])
              @return_array.push(user_object[:user_key])   #Might need to find by instead... very worse in efficiency tbh.
            end
-         end
-       end
-     else
-       if(@genre_checked_array.length > 0)
-         # Have no experience to search by but have genre-checks
-         # Return genre-checked results
-         @genre_checked_array.each do |user_object|
-           @return_array.push(user_object[:user_key])
-         end
-       else
-         # Have no experience to search by and no genre-checked results
-         # Return everything in the table
-         SpecificDesigner.all.find_each do |user_object|
-           @return_array.push(user_object[:user_key])
          end
        end
      end

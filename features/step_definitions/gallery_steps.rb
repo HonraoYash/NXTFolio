@@ -3,7 +3,7 @@ Given(/that (\d+) projects exist/) do |number_of_galleries|
         Gallery.create!(
             gallery_title: "Test Gallery #{i}",
             gallery_description: "Just a test gallery",
-            GeneralInfo_id: i % 3 + 1, 
+            GeneralInfo_id: (i % 3) + 1, 
             gallery_picture: [File.open(Rails.root.join("db", "seed_files" , "test_pic.jpg"))]
         )
     end

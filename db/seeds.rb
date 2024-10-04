@@ -28,7 +28,7 @@ Country.transaction do
      print "\rCountry #{idx} of #{num_countries}"
      STDOUT.flush
      phone_code = country['phone_code']
-     phone_code = phone_code.start_with?("+") ? phone_code[1..-1] : phone_code
+     phone_code = phone_code[1..-1] if phone_code.start_with?("+")
 
 #     # create country
      country_obj = Country.create!(
@@ -131,7 +131,7 @@ puts "Creating fake galleries..."
     Gallery.create!(
         gallery_title: "Test Gallery",
         gallery_description: "Just a test gallery",
-        GeneralInfo_id: i % 6 + 1, # 6 users, so only allow ids from 1 to
+        GeneralInfo_id: (i % 6) + 1, # 6 users, so only allow ids from 1 to
         gallery_picture: [File.open(Rails.root.join("db", "seed_files" , "Jack-Winbow.jpg"))],
         test_picture: [File.open(Rails.root.join("db", "seed_files" , "Jack-Winbow.jpg"))]
     )

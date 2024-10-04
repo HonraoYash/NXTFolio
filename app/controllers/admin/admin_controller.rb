@@ -78,7 +78,7 @@ module Admin
           if(GeneralInfo.check_Job?(@job))
             if(@action == 'Add' && @job_Obj.view_Attr().include?(@attr) == false)
               @job_Obj.add_Attr(@attr)
-              flash.now[:notice] = "Attribute " + @attr + " added to " + @job.to_s + "---" + @job + "\'s current attributes are " + @job_Obj.view_Attr.inspect
+              flash.now[:notice] = "Attribute " + @attr + " added to " + @job.to_s + "---" + @job + "'s current attributes are " + @job_Obj.view_Attr.inspect
               x = @job_Obj.view_Attr().find_index(@attr)
               GeneralInfo.find_each do |user|
               if(user[:job_name] == @job_Obj.name)
@@ -90,7 +90,7 @@ module Admin
             elsif(@action == 'Remove' && @job_Obj.view_Attr().include?(@attr))
               origLoc = @job_Obj.view_Attr().find_index(@attr)
               @job_Obj.delete_Attr(@attr)
-              flash.now[:notice] = "Attribute " + @attr + " removed from " + @job + "---" + @job + "\'s current attributes are " + @job_Obj.view_Attr.inspect
+              flash.now[:notice] = "Attribute " + @attr + " removed from " + @job + "---" + @job + "'s current attributes are " + @job_Obj.view_Attr.inspect
               attrLength = @job_Obj.view_Attr().length
               GeneralInfo.find_each do |user|
               if(user[:job_name] == @job_Obj.name)
@@ -105,7 +105,7 @@ module Admin
               end
             end
             else
-              flash.now[:notice] = "Attribute " + @attr + " already in " + @job.to_s + "---" + @job + "\'s current attributes are " + @job_Obj.view_Attr.inspect
+              flash.now[:notice] = "Attribute " + @attr + " already in " + @job.to_s + "---" + @job + "'s current attributes are " + @job_Obj.view_Attr.inspect
             end
             
           else

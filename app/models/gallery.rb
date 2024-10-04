@@ -36,7 +36,7 @@ class Gallery < ApplicationRecord
             end
         end
         similar_galleries.reject! { |key, val| val.nan? }
-        Hash[similar_galleries.sort_by { |key, val| val }.reverse]
+        similar_galleries.sort_by { |key, val| val }.reverse.to_h
     end
 
 end

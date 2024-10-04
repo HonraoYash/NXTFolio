@@ -7,10 +7,7 @@ module NavigationHelpers
       when /^the search results page$/
         '/search_profile/show/'
 
-      when /^the home page$/
-        root_path
-
-      when /^the landing page$/
+      when /^the (home|landing) page$/ # Combine both into one
         root_path
 
       when /^the general info page$/

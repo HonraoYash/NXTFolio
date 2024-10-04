@@ -18,7 +18,9 @@ class GeneralInfoController < ApplicationController
   end
 
   def make_admin
-    if !(session[:current_user_key] != params[:user] && GeneralInfo.find_by(userKey: session[:current_user_key]).is_admin)
+    if session[:current_user_key] != params[:user] && GeneralInfo.find_by(userKey: session[:current_user_key]).is_admin
+      redirect_to root_path
+    else
       @user_entry = GeneralInfo.find_by(userKey: params[:user])
       if @user_entry
         @user_entry.update_attribute(:is_admin, true)
@@ -28,8 +30,6 @@ class GeneralInfoController < ApplicationController
         puts @user_entry.inspect
         redirect_to root_path
       end
-    else
-      redirect_to root_path
     end
   end
 
@@ -208,10 +208,10 @@ class GeneralInfoController < ApplicationController
 
   # Params used to create the GeneralInfo object
   def general_info_params
-    params.require(:general_info).permit(:first_name, :last_name, :company, :industry, \
-        :highlights, :country, :state, :city, :emailaddr, :bio, :specialization, :profdetails, \
-        :facebook_link, :linkedIn_link, :profile_picture, :personalWebsite_link, :compensation, \
-        :experience, :specific_profile_id, :job_name, :profile_picture, :cover_picture, :gallery_pictures, \
+    params.require(:general_info).permit(:first_name, :last_name, :company, :industry, 
+        :highlights, :country, :state, :city, :emailaddr, :bio, :specialization, :profdetails, 
+        :facebook_link, :linkedIn_link, :profile_picture, :personalWebsite_link, :compensation, 
+        :experience, :specific_profile_id, :job_name, :profile_picture, :cover_picture, :gallery_pictures, 
         :travel_country, :travel_state, :travel_city, :travel_start, :travel_end, :travel_details, :tempVar => [])
         # the tempVar here does not have any meaning, 
         # but if deleted, the last variable will not be permit, don't know why
@@ -273,10 +273,10 @@ class GeneralInfoController < ApplicationController
 
   # Params used to edit the GeneralInfo object
   def general_info_update_param
-    params.require(:general_info).permit(:first_name, :last_name, :company, :highlights, \
-        :industry, :country, :state, :city, :emailaddr, :bio, :specialization, :profdetails, \
-        :facebook_link, :linkedIn_link, :profile_picture, :personalWebsite_link, :compensation, \
-        :experience, :cover_picture, :gallery_pictures, \
+    params.require(:general_info).permit(:first_name, :last_name, :company, :highlights, 
+        :industry, :country, :state, :city, :emailaddr, :bio, :specialization, :profdetails, 
+        :facebook_link, :linkedIn_link, :profile_picture, :personalWebsite_link, :compensation, 
+        :experience, :cover_picture, :gallery_pictures, 
         :travel_country, :travel_state, :travel_city, :travel_start, :travel_end, :travel_details, :tempVar => [])
           # the tempVar here does not have any meaning, 
           # but if deleted, the last variable will not be permit, don't know why
