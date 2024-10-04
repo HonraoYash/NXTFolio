@@ -11,7 +11,8 @@
 (function($){
 $.extend( $.easing,
 {
-	easeIn: function (x, t, b, c, d) {
+	easeIn: function (options) {
+		const {x, t, b, c, d} = options;
 		return $.easing.easeInQuad(x, t, b, c, d);
 	},
 	easeOut: function (x, t, b, c, d) {
