@@ -44,9 +44,11 @@ class SpecificModel < ApplicationRecord
 
               min_size = 0
               max_size = 99_999
-              min_size = params_arg['min_dress_size'].to_i if params['min_dress_size']
+              min_size = params_arg['min_dress_size']&.to_i
 
-              max_size = params_arg['max_dress_size'].to_i if params_arg['max_dress_size']
+              if params_arg['max_dress_size']
+                max_size = params_arg['max_dress_size'].to_i
+              end
 
               puts min_size
               puts max_size
