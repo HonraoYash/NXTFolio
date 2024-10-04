@@ -11,8 +11,14 @@ if (typeof jQuery === 'undefined') {
 +function ($) {
   'use strict';
   var version = $.fn.jquery.split(' ')[0].split('.')
-  if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1) || (version[0] > 3)) {
-    throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')
+  const [major, minor, patch] = version;
+
+  const isOlderVersion = (major === 2 && minor < 9);
+  const isVersionOneNine = (major === 1 && minor === 9 && patch < 1);
+  const isVersionAboveThree = (major > 3);
+
+  if (isOlderVersion || isVersionOneNine || isVersionAboveThree) {
+      throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4');
   }
 }(jQuery);
 

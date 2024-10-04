@@ -201,7 +201,8 @@
 		 * @extends {object} $.MixItUp.prototype._filters
 		 */
 		
-		_addHook: function(type, hook, name, func, priority){
+		_addHook: function(options){
+			const {type, hook, name, func, priority} = options;
 			var collection = $.MixItUp.prototype[type],
 				obj = {};
 				

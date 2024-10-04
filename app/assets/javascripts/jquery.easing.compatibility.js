@@ -10,7 +10,8 @@
 
 (function($){
 	function addEasing(oldName, newName){
-		$.easing[oldName] = function(x, t, b, c, d){
+		$.easing[oldName] = function(options){
+			const {x, t, b, c, d} = options;
 			return $.easing[newName](x, t, b, c, d);
 		};
 	}

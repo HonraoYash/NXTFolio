@@ -1237,7 +1237,8 @@ window.Chart = function(context){
 			};
 	})();
 
-	function calculateScale(drawingHeight,maxSteps,minSteps,maxValue,minValue,labelTemplateString){
+	function calculateScale(options){
+			const {drawingHeight,maxSteps,minSteps,maxValue,minValue,labelTemplateString} = options;
 			var graphMin,graphMax,graphRange,stepValue,numberOfSteps,valueRange,rangeOrderOfMagnitude,decimalNum;
 			
 			valueRange = maxValue - minValue;

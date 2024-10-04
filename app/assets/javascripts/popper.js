@@ -648,7 +648,8 @@ function getArea(_ref) {
  * @argument {Object} options - Modifiers configuration and options
  * @returns {Object} The data object, properly modified
  */
-function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
+function computeAutoPlacement(options) {
+  const {placement, refRect, popper, reference, boundariesElement} = options;
   var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
 
   if (placement.indexOf('auto') === -1) {
@@ -1566,9 +1567,7 @@ function toValue(str, measurement, popperOffsets, referenceOffsets) {
   var unit = split[2];
 
   // If it's not a number it's an operator, I guess
-  if (!value) {
-    return str;
-  }
+  if (!value) return str;
 
   if (unit.indexOf('%') === 0) {
     var element = void 0;
@@ -1703,18 +1702,11 @@ function offset(data, _ref) {
     offsets = parseOffset(offset, popper, reference, basePlacement);
   }
 
-  if (basePlacement === 'left') {
-    popper.top += offsets[0];
-    popper.left -= offsets[1];
-  } else if (basePlacement === 'right') {
-    popper.top += offsets[0];
-    popper.left += offsets[1];
-  } else if (basePlacement === 'top') {
-    popper.left += offsets[0];
-    popper.top -= offsets[1];
-  } else if (basePlacement === 'bottom') {
-    popper.left += offsets[0];
-    popper.top += offsets[1];
+  switch (basePlacement){
+    case 'left': popper.top += offsets[0]; popper.left -= offsets[1]; break;
+    case 'right': popper.top += offsets[0]; popper.left += offsets[1]; break;
+    case 'top': popper.left += offsets[0]; popper.top -= offsets[1]; break;
+    case 'bottom': popper.left += offsets[0]; popper.top += offsets[1]; break;
   }
 
   data.popper = popper;
