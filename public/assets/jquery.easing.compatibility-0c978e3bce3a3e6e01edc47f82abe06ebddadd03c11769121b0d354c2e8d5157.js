@@ -8,67 +8,36 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 
-(function($){
-$.extend( $.easing,
-{
-	easeIn: function (options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInQuad(x, t, b, c, d);
-	},
-	easeOut: function (options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeOutQuad(x, t, b, c, d);
-	},
-	easeInOut: function (options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInOutQuad(x, t, b, c, d);
-	},
-	expoin: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInExpo(x, t, b, c, d);
-	},
-	expoout: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeOutExpo(x, t, b, c, d);
-	},
-	expoinout: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInOutExpo(x, t, b, c, d);
-	},
-	bouncein: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInBounce(x, t, b, c, d);
-	},
-	bounceout: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeOutBounce(x, t, b, c, d);
-	},
-	bounceinout: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInOutBounce(x, t, b, c, d);
-	},
-	elasin: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInElastic(x, t, b, c, d);
-	},
-	elasout: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeOutElastic(x, t, b, c, d);
-	},
-	elasinout: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInOutElastic(x, t, b, c, d);
-	},
-	backin: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInBack(x, t, b, c, d);
-	},
-	backout: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeOutBack(x, t, b, c, d);
-	},
-	backinout: function(options) {
-		const {x, t, b, c, d} = options;
-		return $.easing.easeInOutBack(x, t, b, c, d);
-	}
-});})(jQuery);
+(function($) {
+    const easingMap = {
+        easeIn: 'easeInQuad',
+        easeOut: 'easeOutQuad',
+        easeInOut: 'easeInOutQuad',
+        expoin: 'easeInExpo',
+        expoout: 'easeOutExpo',
+        expoinout: 'easeInOutExpo',
+        bouncein: 'easeInBounce',
+        bounceout: 'easeOutBounce',
+        bounceinout: 'easeInOutBounce',
+        elasin: 'easeInElastic',
+        elasout: 'easeOutElastic',
+        elasinout: 'easeInOutElastic',
+        backin: 'easeInBack',
+        backout: 'easeOutBack',
+        backinout: 'easeInOutBack'
+    };
+
+    // Generic easing function
+    const createEasingFunction = (type) => {
+        return function (options) {
+            const { x, t, b, c, d } = options;
+            return $.easing[easingMap[type]](x, t, b, c, d);
+        };
+    };
+
+    // Extend jQuery easing with the mapped functions
+    $.extend($.easing, Object.keys(easingMap).reduce((acc, type) => {
+        acc[type] = createEasingFunction(type);
+        return acc;
+    }, {}));
+})(jQuery);
