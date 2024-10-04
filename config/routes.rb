@@ -1,6 +1,6 @@
+# frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   # to retrive states and cities
   get 'states/:country_id', to: 'states#index', as: 'states'
   get 'cities/:state_id', to: 'cities#index', as: 'cities'
@@ -15,13 +15,13 @@ Rails.application.routes.draw do
 
   get 'galleries/private_info/:id' => 'galleries#private_info'
 
-  #get 'galleries/create'
+  # get 'galleries/create'
 
-  get 'galleries/destroy/:id'=> 'galleries#destroy', :as => 'galleries_destroy'
+  get 'galleries/destroy/:id' => 'galleries#destroy', :as => 'galleries_destroy'
 
-  get 'show_profile/destroy/:id'=> 'show_profile#destroy', :as => 'show_profile_destroy'
+  get 'show_profile/destroy/:id' => 'show_profile#destroy', :as => 'show_profile_destroy'
 
-  get 'galleries/delete/:id'=> 'galleries#delete', :as => 'galleries_delete'
+  get 'galleries/delete/:id' => 'galleries#delete', :as => 'galleries_delete'
 
   get 'galleries/index'
 
@@ -41,7 +41,6 @@ Rails.application.routes.draw do
 
   put '/galleries/:id/show', to: 'galleries#update', as: 'gallery/update'
 
-
   get '/galleries/:id/delete/:idx', to: 'galleries#delete', as: 'gallery_delete'
 
   get '/galleries/:id/add_images', to: 'galleries#transfer', as: 'gallery_added_image'
@@ -54,11 +53,11 @@ Rails.application.routes.draw do
   get '/galleries/:id/tags', to: 'galleries#add_tag', as: 'gallery_add_tag'
   post '/galleries/:id/tags', to: 'galleries#create_tag', as: 'gallery_create_tag'
 
-  #get 'template/create'
-  #post 'template/create' => 'template#create', :as => 'template/create1'
+  # get 'template/create'
+  # post 'template/create' => 'template#create', :as => 'template/create1'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  #devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   get 'general_info_list' => 'general_info#list', :as => 'general_info_list'
   get 'general_info_save' => 'general_info#save', :as => 'general_info_save'
   get 'general_info/edit' => 'general_info#edit', :as => 'general_info/edit'
@@ -68,8 +67,10 @@ Rails.application.routes.draw do
   post 'general_info/update' => 'general_info#update', :as => 'general_info/update'
   get 'general_info/edit_profession' => 'general_info#edit_profession', :as => 'general_info/edit_profession'
   post 'general_info/update_profession' => 'general_info#update_profession', :as => 'general_info/update_profession'
-  get 'general_info/profession_specific' => 'general_info#profession_specific', :as => 'general_info/profession_specific'
-  post 'general_info/profession_specific' => 'general_info#profession_specific_create', :as => 'general_info/profession_specific_create'
+  get 'general_info/profession_specific' => 'general_info#profession_specific',
+      :as => 'general_info/profession_specific'
+  post 'general_info/profession_specific' => 'general_info#profession_specific_create',
+       :as => 'general_info/profession_specific_create'
 
   # Follow Feature
   get 'general_info/follow/:id' => 'general_info#follow'
@@ -80,7 +81,7 @@ Rails.application.routes.draw do
     get '/create' => 'admin#create'
     post '/create' => 'admin#create'
     get '/edit' => 'admin#edit'
-    post '/edit' => 'admin#edit'  
+    post '/edit' => 'admin#edit'
     get '/delete' => 'admin#delete'
     post '/delete' => 'admin#delete'
   end
@@ -106,11 +107,9 @@ Rails.application.routes.draw do
   get 'login_info/edit' => 'login_info#edit', :as => 'login_info/edit'
   post 'login_info/update' => 'login_info#update', :as => 'login_info/update'
 
-
   get 'login' => 'login_info#login', :as => 'login'
-  get  'logout' => 'login_info#logout', :as => 'logout'
+  get 'logout' => 'login_info#logout', :as => 'logout'
   # post 'create' => 'login_info#create', :as => 'create'
-
 
   get 'specific_designer_list' => 'specific_designer#list', :as => 'specific_designer_list'
   get 'specific_designer/edit' => 'specific_designer#edit', :as => 'specific_designer/edit'
@@ -138,10 +137,13 @@ Rails.application.routes.draw do
   get 'search_profile/search_login' => 'search_profile#search_login', :as => 'search_profile/search_login'
 
   get 'search_profile/search_model' => 'search_profile#search_model', :as => 'search_profile/search_model'
-  get 'search_profile/search_photographer' => 'search_profile#search_photographer', :as => 'search_profile/search_photographer'
+  get 'search_profile/search_photographer' => 'search_profile#search_photographer',
+      :as => 'search_profile/search_photographer'
   get 'search_profile/search_specific' => 'search_profile#search_specific', :as => 'search_profile/search_specific'
-  get 'search_profile/search_specific_model' => 'search_profile#search_specific_model', :as => 'search_profile/search_specific_model'
-  get 'search_profile/search_specific_photographer' => 'search_profile#search_specific_photographer', :as => 'search_profile/search_specific_photographer'
+  get 'search_profile/search_specific_model' => 'search_profile#search_specific_model',
+      :as => 'search_profile/search_specific_model'
+  get 'search_profile/search_specific_photographer' => 'search_profile#search_specific_photographer',
+      :as => 'search_profile/search_specific_photographer'
   get 'search_profile/show_profile/:id' => 'search_profile#show_profile', :as => 'search_profile/show_profile'
   get 'add_profession' => 'template#index', :as => 'template'
   post '/' => 'general_info#index', :as => 'general_info_index_post'
@@ -152,11 +154,11 @@ Rails.application.routes.draw do
   get 'search_engine/search' => 'search_engine#search', :as => 'search_engine/search'
 
   get 'job_search/jobshow' => 'job_search#jobshow', :as => 'job_search/jobshow'
-  #get 'job_search/jobsearch' => 'job_search#jobsearch', :as => 'job_search/jobsearch'
+  # get 'job_search/jobsearch' => 'job_search#jobsearch', :as => 'job_search/jobsearch'
 
   # get 'job_info/post_job' => 'job_info#post_job', :as => 'job_info/post_job1'
   post '/job_info/post_job', to: 'job_info#post_job', as: 'job_info_post_job'
-  get 'job_info/index',   to: 'job_info#index',  as: 'job_info/index'
+  get 'job_info/index', to: 'job_info#index', as: 'job_info/index'
   get 'job_info/search', to: 'job_info#search', as: 'job_info/search'
   get 'job_info/new_job', to: 'job_info#new_job', as: 'job_info_new_job'
   get 'job_info/show/:id', to: 'job_info#show', as: 'job_info_show'
@@ -185,31 +187,29 @@ Rails.application.routes.draw do
   # for job function
   resources :job_info
 
-#halting this changes, later will check
+  # halting this changes, later will check
 
-resources :galleries do
-  resources :images, only: [:create, :destroy]
-end
+  resources :galleries do
+    resources :images, only: %i[create destroy]
+  end
 
   resources :galleries, except: :destroy do
     resources :reviews
 
     # NXTFolio : Added in Spring 2023 for tagging feature
-    resources :gallery_taggings, only: [:create, :destroy]
-
+    resources :gallery_taggings, only: %i[create destroy]
   end
 
   resources :search_engine
   resources :job_search
 
   devise_scope :user do
-    get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
-    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+    get 'sign_in', to: 'devise/sessions#new', as: :new_user_session
+    get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   root 'application#index'
-
 end
 
-#end
+# end
 
-#>>>>>>> refs/remotes/origin/baichuan_update_gallery
+# >>>>>>> refs/remotes/origin/baichuan_update_gallery

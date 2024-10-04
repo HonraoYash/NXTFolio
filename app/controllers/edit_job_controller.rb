@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # class EditJobController < ApplicationController
 # =begin
 #   def list
@@ -90,7 +92,6 @@
 #       @general_info_values = @general_info.attribute_values
 #       @login_info = LoginInfo.find_by(userKey: session[:current_user_key])
 
-
 #       @job_title = @general_info[:job_name]
 #       if (@job_title == "" || @job_title == nil)
 #         @job_title = "Photographer"
@@ -127,8 +128,6 @@
 #       render :action => 'edit'
 #     end
 #   end
-
-
 
 #   # Params used to edit the SpecificDesigner object
 #   def specific_designer_param

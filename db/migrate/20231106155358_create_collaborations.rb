@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCollaborations < ActiveRecord::Migration[6.1]
   def change
     create_table :collaborations do |t|
@@ -7,6 +9,6 @@ class CreateCollaborations < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :collaborations, [:general_info_id, :collaborator_id], unique: true
+    add_index :collaborations, %i[general_info_id collaborator_id], unique: true
   end
 end

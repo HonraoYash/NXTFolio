@@ -191,11 +191,13 @@ $(function() {
 	}
 
 	function updateSlidesPerView(swiperContainer){
-		if(winW>=addPoint) return parseInt($(swiperContainer).attr('data-add-slides'),10);
-		else if(winW>=lgPoint) return parseInt($(swiperContainer).attr('data-lg-slides'),10);
-		else if(winW>=mdPoint) return parseInt($(swiperContainer).attr('data-md-slides'),10);
-		else if(winW>=smPoint) return parseInt($(swiperContainer).attr('data-sm-slides'),10);
-		else return parseInt($(swiperContainer).attr('data-xs-slides'),10);
+		let result;
+		if(winW>=addPoint) result = parseInt($(swiperContainer).attr('data-add-slides'),10);
+		else if(winW>=lgPoint) result = parseInt($(swiperContainer).attr('data-lg-slides'),10);
+		else if(winW>=mdPoint) result = parseInt($(swiperContainer).attr('data-md-slides'),10);
+		else if(winW>=smPoint) result = parseInt($(swiperContainer).attr('data-sm-slides'),10);
+		else result = parseInt($(swiperContainer).attr('data-xs-slides'),10);
+		return result;
 		// else return 0;
 	}
 

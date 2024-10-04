@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUserActivityDetails < ActiveRecord::Migration[6.1]
   def change
     create_table :user_activity_details do |t|

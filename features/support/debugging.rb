@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 # # from https://cucumber.io/docs/cucumber/debugging/?lang=ruby
 
 # # These debugging tools can be used by setting an environment variable:
 # # export VARIABLE_NAME=value
 
-# # rubocop:disable Lint/Debugger
+#
 # class CucumberCounters
 #     @error_counter = 0
 #     @step_counter = 0
