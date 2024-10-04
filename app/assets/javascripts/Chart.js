@@ -8,6 +8,34 @@
  */
 
 //Define the global Chart Variable as a class.
+function elasticEase(t, isIn, isOut) {
+    var s = 1.70158; var p = 0; var a = 1;
+
+    if (t === 0) return 0;
+    if ((t /= 1) === 1) return 1;
+    if (!p) p = 1 * 0.3;
+
+    if (a < Math.abs(1)) {
+        a = 1;
+        s = p / 4;
+    } else {
+        s = p / (2 * Math.PI) * Math.asin(1 / a);
+    }
+
+    if (isIn) {
+        return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p));
+    }
+    if (isOut) {
+        return a * Math.pow(2, -10 * t) * Math.sin((t * 1 - s) * (2 * Math.PI) / p) + 1;
+    }
+    // For easeInOutElastic
+    if (t < 1) {
+        return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p));
+    }
+    return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p) * 0.5 + 1;
+}
+
+
 function calculateAndPopulateScale(config, scaleHeight) {
     calculateDrawingSizes();
     const valueBounds = getValueBounds();
@@ -122,26 +150,13 @@ window.Chart = function(context){
 			return 1/2 * (Math.sqrt(1 - (t-=2)*t) + 1);
 		},
 		easeInElastic: function (t) {
-			var s=1.70158;var p=0;var a=1;
-			if (t==0) return 0;  if ((t/=1)==1) return 1;  if (!p) p=1*.3;
-			if (a < Math.abs(1)) { a=1; var s=p/4; }
-			else var s = p/(2*Math.PI) * Math.asin (1/a);
-			return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*1-s)*(2*Math.PI)/p ));
+			return elasticEase(t, true, false);
 		},
 		easeOutElastic: function (t) {
-			var s=1.70158;var p=0;var a=1;
-			if (t==0) return 0;  if ((t/=1)==1) return 1;  if (!p) p=1*.3;
-			if (a < Math.abs(1)) { a=1; var s=p/4; }
-			else var s = p/(2*Math.PI) * Math.asin (1/a);
-			return a*Math.pow(2,-10*t) * Math.sin( (t*1-s)*(2*Math.PI)/p ) + 1;
+			return elasticEase(t, false, true);
 		},
 		easeInOutElastic: function (t) {
-			var s=1.70158;var p=0;var a=1;
-			if (t==0) return 0;  if ((t/=1/2)==2) return 1;  if (!p) p=1*(.3*1.5);
-			if (a < Math.abs(1)) { a=1; var s=p/4; }
-			else var s = p/(2*Math.PI) * Math.asin (1/a);
-			if (t < 1) return -.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*1-s)*(2*Math.PI)/p ));
-			return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*1-s)*(2*Math.PI)/p )*.5 + 1;
+			return elasticEase(t, false, false);
 		},
 		easeInBack: function (t) {
 			var s = 1.70158;

@@ -20,6 +20,21 @@
 	 * @constructor
 	 * @extends jQuery
 	 */
+
+	function updateCount(collection, key) {
+		if (collection[key] && collection[key] > 1) {
+			collection[key]--;
+		} else if (collection[key] === 1) {
+			delete collection[key];
+		}
+	}
+	
+	// Usage for filters
+	updateCount(filters, self.selectors.filter);
+	
+	// Usage for sorts
+	updateCount(sorts, self.selectors.sort);
+	
 	
 	$.MixItUp = function(){
 		var self = this;
@@ -1975,17 +1990,8 @@
 			
 			self._execAction('destroy', 1, arguments);
 
-			if(filters[self.selectors.filter] && filters[self.selectors.filter] > 1) {
-				filters[self.selectors.filter]--;
-			} else if(filters[self.selectors.filter] === 1) {
-				delete filters[self.selectors.filter];
-			}
-
-			if(sorts[self.selectors.sort] && sorts[self.selectors.sort] > 1) {
-				sorts[self.selectors.sort]--;
-			} else if(sorts[self.selectors.sort] === 1) {
-				delete sorts[self.selectors.sort];
-			}
+			updateCount(filters, self.selectors.filter);
+			updateCount(sorts, self.selectors.sort);
 
 			delete $.MixItUp.prototype._instances[self._id];
 		}
