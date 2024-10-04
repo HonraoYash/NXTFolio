@@ -40,16 +40,12 @@ class SpecificModel < ApplicationRecord
             elsif %w[max_dress_size min_dress_size].include?(param_key)
               model_dress_size = 0
 
-              model_dress_size = spec_object['dress_size'] if spec_object['dress_size']
+              model_dress_size = spec_object['dress_size']&.to_i
 
               min_size = 0
               max_size = 99_999
               min_size = params_arg['min_dress_size']&.to_i
-
-              if params_arg['max_dress_size']
-                max_size = params_arg['max_dress_size'].to_i
-              end
-
+              max_size = params_arg['max_dress_size']&.to_i
               puts min_size
               puts max_size
               puts model_dress_size
