@@ -13,6 +13,8 @@ AWS_ACCESS_KEY: ''
 AWS_SECRET_KEY: ''
 AWS_BUCKET: ''
 AWS_REGION: ''
+GOOGLE_KEY: ''
+GOOGLE_SECRET: ''
 #development&production:
 facebook_client_id: '529985925072978'
 facebook_client_secret: 'd76f6eaaa6d11b8a0bd7c1d17849ddae'

@@ -26,3 +26,6 @@ EXPOSE 3000
 # CMD ["/usr/sbin/sshd", "-D"]
 CMD ["/bin/bash", "-c", "service postgresql start & /usr/sbin/sshd -D"]
 # CMD ["/bin/bash", "-c", "service postgresql start"]
+
+# install firefox
+RUN sudo apt update  && sudo apt install -y firefox
