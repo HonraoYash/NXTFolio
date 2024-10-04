@@ -36,24 +36,24 @@ class SpecificModel < ApplicationRecord
 
               incl = false if model_height_tot < (min_height * 12) || model_height_tot > (max_height * 12)
 
-              incl = false if model_height_tot.zero?
+              incl = model_dress_size.nonzero?
             elsif %w[max_dress_size min_dress_size].include?(param_key)
               model_dress_size = 0
 
-              model_dress_size = spec_object['dress_size'] unless spec_object['dress_size'].nil?
+              model_dress_size = spec_object['dress_size'] if spec_object['dress_size']
 
               min_size = 0
               max_size = 99_999
-              min_size = params_arg['min_dress_size'].to_i if params_arg.include? 'min_dress_size'
+              min_size = params_arg['min_dress_size'].to_i if params['min_dress_size']
 
-              max_size = params_arg['max_dress_size'].to_i if params_arg.include? 'max_dress_size'
+              max_size = params_arg['max_dress_size'].to_i if params_arg['max_dress_size']
 
               puts min_size
               puts max_size
               puts model_dress_size
-              incl = false if model_dress_size < min_size || model_dress_size > max_size
+              incl = !(model_dress_size < min_size || model_dress_size > max_size)
 
-              incl = false if model_dress_size.zero?
+              incl = model_dress_size.nonzero?
             else
 
               chk_val = user_object[param_key]
@@ -63,7 +63,7 @@ class SpecificModel < ApplicationRecord
                 chk_val = spec_object[param_key]
               end
 
-              incl = false if chk_val != param_val
+              incl = (chk_val == param_val)
             end
           end
 
