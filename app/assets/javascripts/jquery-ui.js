@@ -1416,13 +1416,11 @@ $.ui.position = {
 					}
 				}
 			// too far up -> align with top
-			} else if ( overTop > 0 ) {
-				position.top += overTop;
+			} else if ( overTop > 0 ) position.top += overTop;
 			// too far down -> align with bottom edge
-			} else if ( overBottom > 0 ) {
-				position.top -= overBottom;
+			 else if ( overBottom > 0 ) position.top -= overBottom;
 			// adjust based on position and margin
-			} else {
+			 else {
 				position.top = max( position.top - collisionPosTop, position.top );
 			}
 		}

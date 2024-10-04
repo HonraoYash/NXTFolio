@@ -1833,9 +1833,7 @@
 						return (args.index < self._$targets.length || !self._$targets.length) ? 
 							self._$targets[args.index] :
 							self._$targets[self._$targets.length-1].nextElementSibling;
-					} else {
-						return self._$parent[0].children[0];
-					}
+					} else return self._$parent[0].children[0];
 				})();
 						
 			self._execAction('insert', 0, arguments);
@@ -1853,9 +1851,7 @@
 			
 			self._execAction('insert', 1, arguments);
 			
-			if(typeof args.multiMix === 'object'){
-				self.multiMix(args.multiMix, callback);
-			}
+			if(typeof args.multiMix === 'object') self.multiMix(args.multiMix, callback);
 		},
 
 		/**

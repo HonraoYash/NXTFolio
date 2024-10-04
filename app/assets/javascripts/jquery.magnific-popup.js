@@ -785,9 +785,11 @@ MagnificPopup.prototype = {
 					} else if(attr === 'img') {
 						if(el.is('img')) {
 							el.attr('src', value);
-						} else {
-							el.replaceWith( $('<img>').attr('src', value).attr('class', el.attr('class')) );
+							return;
 						}
+						el.replaceWith( $('<img>')
+							.attr('src', value)
+							.attr('class', el.attr('class')) );
 					} else {
 						el.attr(arr[1], value);
 					}
